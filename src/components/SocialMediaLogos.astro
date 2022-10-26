@@ -1,0 +1,136 @@
+---
+interface Props {
+  colorMode?: string;
+}
+
+const { colorMode = "black" } = Astro.props;
+
+import instagramLogo from "@assets/images/instagram.svg";
+import twitterLogo from "@assets/images/twitter.svg";
+import youtubeLogo from "@assets/images/youtube.svg";
+import linkedinLogo from "@assets/images/linkedin.svg";
+import tiktokLogo from "@assets/images/tiktok.svg";
+import facebookLogo from "@assets/images/facebook.svg";
+import githubLogo from "@assets/images/github.svg";
+---
+
+<ul class="social-media-icons" class={colorMode}>
+  <li>
+    <a href={import.meta.env.INSTAGRAM}
+      ><img class={colorMode} src={instagramLogo} alt="Instagram logo" />
+    </a>
+  </li>
+  <li>
+    <a href={import.meta.env.TWITTER}
+      ><img class={colorMode} src={twitterLogo} alt="Twitter logo" />
+    </a>
+  </li>
+  <li>
+    <a href={import.meta.env.YOUTUBE}
+      ><img class={colorMode} src={youtubeLogo} alt="YouTube logo" />
+    </a>
+  </li>
+  <li>
+    <a href={import.meta.env.LINKEDIN}
+      ><img class={colorMode} src={linkedinLogo} alt="LinkedIn logo" />
+    </a>
+  </li>
+  <li>
+    <a href={import.meta.env.TIKTOK}
+      ><img class={colorMode} src={tiktokLogo} alt="TikTok logo" />
+    </a>
+  </li>
+  <li>
+    <a href={import.meta.env.FACEBOOK}
+      ><img class={colorMode} src={facebookLogo} alt="Facebook logo" />
+    </a>
+  </li>
+  <li>
+    <a href={import.meta.env.GITHUB}
+      ><img class={colorMode} src={githubLogo} alt="GitHub logo" />
+    </a>
+  </li>
+</ul>
+<style>
+  ul {
+    list-style: none;
+    list-style-type: none;
+    margin: 0;
+    padding: 1em 0;
+  }
+
+  .social-media-icons {
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    align-self: center;
+  }
+
+  .social-media-icons img {
+    width: 4vw;
+    padding: 0.5vw;
+  }
+
+  .white {
+    filter: invert(100%) sepia(96%) saturate(15%) hue-rotate(212deg)
+      brightness(104%) contrast(104%);
+  }
+
+  .social-media-icons img {
+    animation-name: rotation;
+    /* animation-duration: 0.016666666666s; */
+    animation-duration: 150s;
+    /* animation-iteration-count: infinite; */
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+  }
+
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(180deg);
+    }
+  }
+
+  @keyframes rotation-backwards {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(-180deg);
+    }
+  }
+
+  .social-media-icons > li:nth-child(1) > * > img {
+    animation-duration: 150s;
+  }
+
+  .social-media-icons > li:nth-child(2) > * > img {
+    animation-duration: 100s;
+    animation-name: rotation-backwards;
+  }
+
+  .social-media-icons > li:nth-child(3) > * > img {
+    animation-duration: 600s;
+  }
+
+  .social-media-icons > li:nth-child(4) > * > img {
+    animation-duration: 120s;
+  }
+
+  .social-media-icons > li:nth-child(5) > * > img {
+    animation-duration: 185s;
+    animation-name: rotation-backwards;
+  }
+
+  .social-media-icons > li:nth-child(6) > * > img {
+    animation-duration: 300s;
+  }
+
+  .social-media-icons > li:nth-child(7) > * > img {
+    animation-duration: 700s;
+    animation-name: rotation-backwards;
+  }
+</style>

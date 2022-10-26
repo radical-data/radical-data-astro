@@ -1,0 +1,41 @@
+---
+import GenerativeLogo from "@components/GenerativeLogo.astro";
+---
+
+<div>
+  <h1>Radical Data: Data, Art and Activism</h1>
+  <h2><GenerativeLogo /></h2>
+  <span class="dot"></span>
+  <p class="arrow">&darr;</p>
+</div>
+<!-- <p>Radical Data in 1 minute.</p> -->
+<style>
+  div {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
+    padding-block: 2rem 0rem;
+  }
+  h1 {
+    display: none;
+  }
+  h2 {
+    font-size: 4rem;
+    line-height: 95%;
+    margin: 0;
+    word-spacing: 9rem;
+  }
+  .dot {
+    height: 7rem;
+    width: 7rem;
+    background-color: var(--rd-red);
+    border-radius: 50%;
+    display: inline-block;
+    margin: auto;
+  }
+  .arrow {
+    font-size: 5rem;
+    line-height: 0;
+    color: var(--rd-red);
+    margin-block: 3rem;
+  }
+</style>

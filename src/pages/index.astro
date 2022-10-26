@@ -1,0 +1,56 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Navigation from "@components/Navigation.astro";
+import Footer from "@components/Footer.astro";
+import Hero from "@components/Hero.astro";
+import CardFilter from "@components/CardFilter.astro";
+import Statement from "@components/Statement.astro";
+import SeeMore from "@components/SeeMore.astro";
+import CardGrid from "@components/CardGrid.astro";
+---
+
+<Layout title="Radical Data | Data, Art and Activism">
+  <header>
+    <Navigation />
+  </header>
+  <main>
+    <Hero />
+    <article>
+      <h2>
+        <CardFilter />
+      </h2>
+      <CardGrid />
+    </article>
+    <section>
+      <Statement
+        body="We're using data to build a world that is more joyful and just."
+      />
+    </section>
+    <section>
+      <SeeMore />
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  header {
+  }
+
+  body {
+    margin: auto;
+    /* padding: 1.5rem; */
+  }
+  main {
+    margin: auto;
+    max-width: min(68ch, 90vw);
+  }
+  h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin: 0;
+  }
+  h2 {
+    max-width: 30ch;
+  }
+</style>

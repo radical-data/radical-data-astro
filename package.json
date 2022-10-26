@@ -1,0 +1,18 @@
+{
+  "name": "@example/basics",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@egjs/svelte-grid": "^1.11.1",
+    "astro": "^1.5.0",
+    "astro-link": "^1.1.1"
+  }
+}

@@ -1,0 +1,73 @@
+---
+---
+
+<nav>
+  <ul>
+    <li id="home-link"><a href="/">Radical Data</a></li>
+    <li><a href="/collaboration">Work with us</a></li>
+    <li><a href="/archive">Archive</a></li>
+    <li><a href="/about">About</a></li>
+  </ul>
+</nav>
+<style>
+  nav {
+    margin: auto;
+    max-width: min(68ch, 90vw);
+    padding-bottom: 10px;
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    position: sticky;
+    top: 0px;
+    z-index: 1;
+  }
+
+  nav ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr repeat(3, auto);
+    padding-left: 0;
+    /* vertical-align: bottom;
+    line-height: 3rem; */
+  }
+
+  nav ul > li {
+    color: var(--off-black);
+    padding-right: 1rem;
+  }
+
+  nav ul > li#home-link {
+    color: var(--accent);
+    font-weight: 800;
+    /* font-size: 1.5rem; */
+  }
+
+  nav ul > li:last-of-type {
+    padding-right: 0;
+  }
+
+  nav ul li a {
+    color: inherit;
+    text-decoration: inherit;
+    transition: color 0.5s;
+  }
+
+  nav ul li a:hover {
+    color: var(--rd-blue);
+    transition: color 0.5s;
+  }
+
+  nav a[aria-current="page"],
+  nav a[data-state="active"] {
+    color: var(--rd-blue);
+  }
+
+  nav::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    border-top: 3px solid var(--grey);
+    z-index: -1;
+  }
+</style>

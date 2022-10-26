@@ -1,0 +1,60 @@
+---
+export interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+    <style is:global>
+      :root {
+        --accent: black;
+        --border: 0.3rem solid var(--accent);
+        --off-black: #2f2f2f;
+        --grey: #686868;
+        --lighter-grey: #898989;
+        --off-white: #f6f6f6;
+        --rd-red: #cb431a;
+        --rd-light-blue: #89cff0;
+        --rd-blue: #00b8ff;
+        --rd-yellow: #ffda55;
+      }
+
+      @font-face {
+        font-family: Urbanist;
+        src: url("/fonts/Urbanist-VariableFont_wght.woff2") format("woff2");
+      }
+
+      @font-face {
+        font-family: LindenHill;
+        src: url("/fonts/LindenHill-Regular.woff2") format("woff2");
+      }
+
+      html {
+        font-family: "Urbanist", "Trebuchet MS", Helvetica, sans-serif;
+        font-size: clamp(1rem, 0.75rem + 1.5vw, 2rem);
+        background-color: var(--off-white);
+        margin: 0;
+      }
+      p,
+      small {
+        font-family: "LindenHill", Georgia, serif;
+      }
+
+      code {
+        font-family: "Courier New", Courier, monospace;
+      }
+    </style>
+  </body>
+</html>
