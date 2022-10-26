@@ -1,0 +1,97 @@
+---
+import Card from "@components/Card.astro";
+---
+
+<script
+  type="text/javascript"
+  is:inline
+  src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"
+></script>
+<script is:inline src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.js"
+></script>
+
+<div class="grid">
+  <div class="grid-sizer"></div>
+  <Card
+    href="/about"
+    title="Who we are"
+    body="Radical Data is a collective using data and building tools for resistance and alternative futures."
+    type="information"
+  />
+  <Card
+    href="https://astro.build/integrations/"
+    pretitle="Interview:"
+    title="Glacier Kwong"
+    body="Three years on, how the Hong Kong protests changed tech resistance."
+    type="article"
+    imgLink="./src/assets/images/glacier-kwong.png"
+  />
+  <Card
+    href="https://astro.build/themes/"
+    title="Silly Walks"
+    posttitle="(against Surveillance Capitalism)"
+    body="A playful and functional resistance to gait detection AIs."
+    type="project"
+    imgLink="./src/assets/images/silly-walks.png"
+  />
+  <Card
+    href="https://astro.build/chat/"
+    pretitle="From the archive:"
+    title="Queering the Map"
+    body="A community-generated map of queer experience."
+    type="archive"
+    imgLink="./src/assets/images/queering-the-map.jpg"
+  />
+</div>
+<script type="text/javascript" is:inline>
+  // external js: masonry.pkgd.js, imagesloaded.pkgd.js
+
+  // init Masonry
+  var grid = document.querySelector(".grid");
+
+  var msnry = new Masonry(grid, {
+    itemSelector: ".grid-item",
+    columnWidth: ".grid-sizer",
+    percentPosition: true,
+  });
+
+  imagesLoaded(grid).on("progress", function () {
+    // layout Masonry after each image loads
+    msnry.layout();
+  });
+</script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  /* force scrollbar */
+  html {
+    overflow-y: scroll;
+  }
+
+  /* ---- grid ---- */
+
+  /* clear fix */
+  .grid:after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+  /* ---- .grid-item ---- */
+
+  .grid-sizer,
+  .grid-item {
+    width: 50%;
+  }
+
+  .grid-item {
+    float: left;
+  }
+
+  .grid-item img {
+    display: block;
+    max-width: 100%;
+  }
+</style>
