@@ -2,7 +2,6 @@
 import Layout from "@layouts/Layout.astro";
 import Hero from "@components/Hero.astro";
 import CardFilter from "@components/CardFilter.astro";
-import Statement from "@components/Statement.astro";
 import SeeMore from "@components/SeeMore.astro";
 import MasonryCardGrid from "@components/MasonryCardGrid.astro";
 ---
@@ -20,21 +19,12 @@ import MasonryCardGrid from "@components/MasonryCardGrid.astro";
       <MasonryCardGrid />
     </article>
     <section>
-      <Statement
-        body="We're using data to build a world that is more joyful and just."
-      />
-    </section>
-    <section>
       <SeeMore />
     </section>
   </main>
 </Layout>
 
 <style>
-  body {
-    margin: auto;
-    /* padding: 1.5rem; */
-  }
   main {
     margin: auto;
     max-width: min(68ch, 90vw);
