@@ -1,7 +1,5 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import Navigation from "@components/Navigation.astro";
-import Footer from "@components/Footer.astro";
 import Hero from "@components/Hero.astro";
 import CardFilter from "@components/CardFilter.astro";
 import Statement from "@components/Statement.astro";
@@ -10,9 +8,6 @@ import MasonryCardGrid from "@components/MasonryCardGrid.astro";
 ---
 
 <Layout title="Radical Data | Data, Art and Activism">
-  <header>
-    <Navigation />
-  </header>
   <main>
     <Hero />
     <article>
@@ -30,13 +25,9 @@ import MasonryCardGrid from "@components/MasonryCardGrid.astro";
       <SeeMore />
     </section>
   </main>
-  <Footer />
 </Layout>
 
 <style>
-  header {
-  }
-
   body {
     margin: auto;
     /* padding: 1.5rem; */
