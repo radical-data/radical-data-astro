@@ -727,6 +727,11 @@ astro-link@^1.1.1:
   resolved "https://registry.yarnpkg.com/astro-link/-/astro-link-1.1.1.tgz#fc87e2ca9072b6cf8c830cb1c8ff00fa181dcacc"
   integrity sha512-z2V+TL7Tubp8NuVJmi3YLTaBHSrvn6P6melNK3qZpNUaiwPanmw9wINX0gCIw5Fub26MCkMXfY6zyUcda+ds1A==
 
+astro-seo@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/astro-seo/-/astro-seo-0.6.0.tgz#d46f98baa929f2111dd702662806fa741a9ac02a"
+  integrity sha512-nR+dJlAyQhX6s0oAmbBqPq3KCZax/zVAerFsclGiJQ2znOkS/7L+RGjziS4M9Q3OQxm3FMfqIKHp9Ns73Q81ww==
+
 astro@^1.5.0:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/astro/-/astro-1.5.2.tgz#c4c66855b184e4b5191f988eb67dd2dffb3ac6ad"
