@@ -1,13 +1,18 @@
 ---
 import Card from "@components/Card.astro";
+import RadicalDataInBarcelona from "@assets/images/radical-data-in-barcelona.png";
+import GlacierKwong from "@assets/images/glacier-kwong.png";
+import SillyWalks from "@assets/images/silly-walks.png";
+import QueeringTheMap from "@assets/images/queering-the-map.jpg";
 ---
 
 <script
-  type="text/javascript"
   is:inline
-  src="./node_modules/masonry-layout/dist/masonry.pkgd.js"
+  src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"
 ></script>
-<script is:inline src="./node_modules/imagesloaded/imagesloaded.pkgd.js"
+<script
+  is:inline
+  src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"
 ></script>
 
 <div class="grid">
@@ -19,7 +24,7 @@ import Card from "@components/Card.astro";
       title="Who we are"
       body="Radical Data is a collective using data and building tools for resistance and alternative futures."
       type="information"
-      imgLink="./src/assets/images/radical-data-in-barcelona.png"
+      imgLink={RadicalDataInBarcelona}
     />
   </div>
   <div class="grid-item">
@@ -29,7 +34,7 @@ import Card from "@components/Card.astro";
       title="Glacier Kwong"
       body="Three years on, how the Hong Kong protests changed tech resistance."
       type="article"
-      imgLink="./src/assets/images/glacier-kwong.png"
+      imgLink={GlacierKwong}
     />
   </div>
   <div class="grid-item">
@@ -39,7 +44,7 @@ import Card from "@components/Card.astro";
       posttitle="(against Surveillance Capitalism)"
       body="A playful and functional resistance to gait detection AIs."
       type="project"
-      imgLink="./src/assets/images/silly-walks.png"
+      imgLink={SillyWalks}
     />
   </div>
   <div class="grid-item">
@@ -49,7 +54,7 @@ import Card from "@components/Card.astro";
       title="Queering the Map"
       body="A community-generated map of queer experience."
       type="archive"
-      imgLink="./src/assets/images/queering-the-map.jpg"
+      imgLink={QueeringTheMap}
     />
   </div>
 </div>
