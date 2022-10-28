@@ -143,5 +143,24 @@ function setNewText() {
   h2.innerText = phrase;
 }
 
-// setNewText();
-setInterval(setNewText, 1500);
+setNewText();
+
+const { matches: motionOK } = window.matchMedia(
+  "(prefers-reduced-motion: no-preference)"
+);
+
+if (motionOK) {
+  setInterval(setNewText, 1500);
+}
+
+// var counter = 0;
+// var myFunction = function () {
+//   setNewText();
+//   if (counter % 14 <= 10) {
+//     setTimeout(myFunction, 150);
+//   } else {
+//     setTimeout(myFunction, 1500);
+//   }
+//   counter += 1;
+// };
+// setTimeout(myFunction, counter);
