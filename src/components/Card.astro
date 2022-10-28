@@ -12,7 +12,7 @@ export interface Props {
 const { href, pretitle, posttitle, title, body, type, imgLink } = Astro.props;
 ---
 
-<div class={`link-card grid-item ${type}`}>
+<div class={`link-card ${type}`}>
   <a href={href}>
     <h2>
       <span class="pretitle">{pretitle}</span>
@@ -29,8 +29,6 @@ const { href, pretitle, posttitle, title, body, type, imgLink } = Astro.props;
   .link-card {
     display: flex;
     border: 4px solid var(--lighter-grey);
-    margin: 2vw;
-    width: 40%;
   }
 
   .link-card:where(.article, , .project, .archive) {
@@ -40,10 +38,10 @@ const { href, pretitle, posttitle, title, body, type, imgLink } = Astro.props;
   .link-card:where(.article, .project, .archive)::before {
     content: "";
     position: absolute;
-    margin-top: -45px;
-    margin-left: -45px;
-    width: 90px;
-    height: 90px;
+    margin-top: clamp(-50px, -5vw, -12.5px);
+    margin-left: clamp(-50px, -5vw, -12.5px);
+    width: clamp(25px, 10vw, 100px);
+    height: clamp(25px, 10vw, 100px);
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
     border-radius: 50%;
