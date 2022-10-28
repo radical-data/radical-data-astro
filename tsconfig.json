@@ -6,6 +6,7 @@
       "@components/*": ["src/components/*"],
       "@assets/*": ["src/assets/*"],
       "@layouts/*": ["src/layouts/*"]
-    }
+    },
+    "types": ["@astrojs/image/client"]
   }
 }

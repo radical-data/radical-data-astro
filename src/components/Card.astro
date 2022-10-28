@@ -5,11 +5,15 @@ export interface Props {
   href: string;
   type: string;
   imgLink?: string;
+  imgAltText?: string;
   pretitle?: string;
   posttitle?: string;
 }
 
-const { href, pretitle, posttitle, title, body, type, imgLink } = Astro.props;
+const { href, pretitle, posttitle, title, body, type, imgLink, imgAltText } =
+  Astro.props;
+
+import { Picture } from "@astrojs/image/components";
 ---
 
 <div class={`link-card ${type}`}>
@@ -22,7 +26,14 @@ const { href, pretitle, posttitle, title, body, type, imgLink } = Astro.props;
     <p>
       {body}
     </p>
-    <img src={imgLink} />
+    <!-- <img src={imgLink} /> -->
+    <Picture
+      src={imgLink}
+      widths={[200, 400, 800]}
+      sizes="(max-width: 800px) 100vw, 800px"
+      formats={["avif", "jpeg", "png", "webp"]}
+      alt={imgAltText}
+    />
   </a>
 </div>
 <style>
