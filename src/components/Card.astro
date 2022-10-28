@@ -26,10 +26,9 @@ import { Picture } from "@astrojs/image/components";
     <p>
       {body}
     </p>
-    <!-- <img src={imgLink} /> -->
     <Picture
       src={imgLink}
-      widths={[200, 400, 800]}
+      widths={[400, 800]}
       sizes="(max-width: 800px) 100vw, 800px"
       formats={["avif", "jpeg", "png", "webp"]}
       alt={imgAltText}
@@ -94,7 +93,6 @@ import { Picture } from "@astrojs/image/components";
     display: block;
   }
   p {
-    font-family: "LindenHill";
     margin-top: 0.5rem;
     margin-bottom: 0;
   }
