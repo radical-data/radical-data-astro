@@ -12,41 +12,43 @@ import linkedinLogo from "@assets/images/linkedin.svg";
 import tiktokLogo from "@assets/images/tiktok.svg";
 import facebookLogo from "@assets/images/facebook.svg";
 import githubLogo from "@assets/images/github.svg";
+
+import socialMediaLinks from "@assets/data/social-media-links.json";
 ---
 
 <ul class="social-media-icons" class={colorMode}>
   <li>
-    <a href={import.meta.env.INSTAGRAM}
+    <a href={socialMediaLinks.social.instagram}
       ><img class={colorMode} src={instagramLogo} alt="Instagram logo" />
     </a>
   </li>
   <li>
-    <a href={import.meta.env.TWITTER}
+    <a href={socialMediaLinks.social.twitter}
       ><img class={colorMode} src={twitterLogo} alt="Twitter logo" />
     </a>
   </li>
   <li>
-    <a href={import.meta.env.YOUTUBE}
+    <a href={socialMediaLinks.social.youtube}
       ><img class={colorMode} src={youtubeLogo} alt="YouTube logo" />
     </a>
   </li>
   <li>
-    <a href={import.meta.env.LINKEDIN}
+    <a href={socialMediaLinks.social.linkedin}
       ><img class={colorMode} src={linkedinLogo} alt="LinkedIn logo" />
     </a>
   </li>
   <li>
-    <a href={import.meta.env.TIKTOK}
+    <a href={socialMediaLinks.social.tiktok}
       ><img class={colorMode} src={tiktokLogo} alt="TikTok logo" />
     </a>
   </li>
   <li>
-    <a href={import.meta.env.FACEBOOK}
+    <a href={socialMediaLinks.social.facebook}
       ><img class={colorMode} src={facebookLogo} alt="Facebook logo" />
     </a>
   </li>
   <li>
-    <a href={import.meta.env.GITHUB}
+    <a href={socialMediaLinks.social.github}
       ><img class={colorMode} src={githubLogo} alt="GitHub logo" />
     </a>
   </li>
