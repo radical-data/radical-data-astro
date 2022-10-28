@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^1.0.0",
-    "@egjs/svelte-grid": "^1.11.1",
     "astro": "^1.5.0",
     "astro-link": "^1.1.1",
     "astro-seo": "^0.6.0",

@@ -329,46 +329,6 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
-"@egjs/children-differ@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@egjs/children-differ/-/children-differ-1.0.1.tgz#5465fa80671d5ca3564ebe912f48b05b3e8a14fd"
-  integrity sha512-DRvyqMf+CPCOzAopQKHtW+X8iN6Hy6SFol+/7zCUiE5y4P/OB8JP8FtU4NxtZwtafvSL4faD5KoQYPj3JHzPFQ==
-  dependencies:
-    "@egjs/list-differ" "^1.0.0"
-
-"@egjs/component@^3.0.0", "@egjs/component@^3.0.1":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@egjs/component/-/component-3.0.2.tgz#c56794fcf1b2cb2768d09b021444779e54d0de1b"
-  integrity sha512-Mze3mwEE19+dERrimg0JVLtpOHG4AC+LOuKqvF4qGZjn0k23ZbNI7b/gy1LFR63LigC2b8k70aDjy8xoT+WNPA==
-
-"@egjs/grid@~1.11.1":
-  version "1.11.1"
-  resolved "https://registry.yarnpkg.com/@egjs/grid/-/grid-1.11.1.tgz#f082ea0745b2ec12fe59045f0f5611ee7a8a82c6"
-  integrity sha512-/UkSeapVLh4eF3obxaJkgg30yYQPCl8Ugua7vTTHkSljgidwZQKweTvgY57gUnAhHWj12KoR65FxfJ9Qq9tyXQ==
-  dependencies:
-    "@egjs/children-differ" "^1.0.1"
-    "@egjs/component" "^3.0.0"
-    "@egjs/imready" "^1.3.0"
-
-"@egjs/imready@^1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@egjs/imready/-/imready-1.3.0.tgz#76a7df9d1a77c008bcd33942d207d39d0ce2f6fa"
-  integrity sha512-h6qxQup/ZJxEJkDMuyR6yuJ9jsuVan7EyQ8Xa0WkTWAr3HtUYjtDHOCjJvhFg50Xv3C+TkfYj4Mxmkz7zNePSA==
-  dependencies:
-    "@egjs/component" "^3.0.1"
-
-"@egjs/list-differ@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@egjs/list-differ/-/list-differ-1.0.0.tgz#2277aff52e3e4bd9318d5c30ffc3ba3b6216f05e"
-  integrity sha512-HsbMKc0ZAQH+EUeCmI/2PvTYSybmkaWwakU8QGDYYgMVIg9BQ5sM0A0Nnombjxo2+JzXHxmH+jw//yGX+y6GYw==
-
-"@egjs/svelte-grid@^1.11.1":
-  version "1.11.1"
-  resolved "https://registry.yarnpkg.com/@egjs/svelte-grid/-/svelte-grid-1.11.1.tgz#c53bfaf2c7814adb1eccb8407bf16188edf85bcc"
-  integrity sha512-gSsVyq730IyXagN+dWFTlhX+KTqflEQA8ajRNecu+dYsxtBEYIiqlqNRuQ6kVDdF0JKgsk03AKphV9RvdjySKg==
-  dependencies:
-    "@egjs/grid" "~1.11.1"
-
 "@emmetio/abbreviation@^2.2.3":
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/@emmetio/abbreviation/-/abbreviation-2.2.3.tgz#2b3c0383c1a4652f677d5b56fb3f1616fe16ef10"
