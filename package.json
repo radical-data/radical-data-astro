@@ -14,7 +14,7 @@
     "@astrojs/sitemap": "^1.0.0",
     "@egjs/svelte-grid": "^1.11.1",
     "astro": "^1.5.0",
-    "astro-link": "^1.1.1"
+    "astro-link": "^1.1.1",
     "imagesloaded": "^5.0.0",
     "masonry-layout": "^4.2.2"
   }
