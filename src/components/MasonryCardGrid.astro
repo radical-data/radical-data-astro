@@ -6,13 +6,16 @@ import SillyWalks from "@assets/images/silly-walks.png";
 import QueeringTheMap from "@assets/images/queering-the-map.jpg";
 import QueeringTheQuantifiedSelf from "@assets/images/queering-the-quantified-self.png";
 import SecurityVision from "@assets/images/security-vision.png";
+const archiveProjects = await Astro.glob("../pages/archive/*.md");
 ---
 
 <script
+  type="text/javascript"
   is:inline
   src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"
 ></script>
 <script
+  type="text/javascript"
   is:inline
   src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"
 ></script>
@@ -65,9 +68,9 @@ import SecurityVision from "@assets/images/security-vision.png";
   </div>
   <div class="grid-item">
     <Card
-      href="/"
-      title="Queering the Quantified Self"
-      body="A platform for citizens to create, own and analyse information about our bodies."
+      href={archiveProjects[0].url}
+      title={archiveProjects[0].frontmatter.title}
+      body={archiveProjects[0].frontmatter.extract}
       type="project"
       imgLink={QueeringTheQuantifiedSelf}
       imgAltText="A notebook with diagrams in."
@@ -96,7 +99,20 @@ import SecurityVision from "@assets/images/security-vision.png";
 
   imagesLoaded(grid).on("progress", function () {
     msnry.layout();
+    // hack
+    setTimeout(function () {
+      msnry.layout();
+    }, 1000);
   });
+
+  imagesLoaded(grid).on("always", function () {
+    msnry.layout();
+  });
+
+  msnry.layout();
+  setTimeout(function () {
+    msnry.layout();
+  }, 2000);
 </script>
 <style>
   * {
