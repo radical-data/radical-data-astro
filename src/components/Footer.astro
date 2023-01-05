@@ -2,6 +2,7 @@
 import radicalDataLogo from "@assets/images/radical-data-logo.svg";
 import SocialMediaLogos from "./SocialMediaLogos.astro";
 import { Link } from "astro-link";
+let currentYear = new Date().getFullYear();
 ---
 
 <footer>
@@ -63,7 +64,9 @@ import { Link } from "astro-link";
       </ul>
     </div>
     <div class="eight">
-      <small id="copyright">© 2022 Radical Data. All rights reserved.</small>
+      <small id="copyright"
+        >© {currentYear} Radical Data. All rights reserved.</small
+      >
     </div>
   </div>
 </footer>
