@@ -1,36 +1,12 @@
 ---
-import Layout from "@layouts/Layout.astro";
-const projects = await Astro.glob("./*.md");
+import TagPage from "@layouts/TagPage.astro";
+import { getCollection } from "astro:content";
+const posts = await getCollection("projects");
 ---
 
-<Layout title="Archive | Radical Data" description="A collection of projects.">
-  <main>
-    <article>
-      <section>
-        <h1>Projects</h1>
-        <p>Things We've Done and Things We're Doing</p>
-        <ul>
-          {
-            projects.map((project) => (
-              <li>
-                <a href={project.url}>{project.frontmatter.title}</a>
-              </li>
-            ))
-          }
-        </ul>
-      </section>
-    </article>
-  </main>
-</Layout>
-<style>
-  ul,
-  li {
-    font-family: "LindenHill";
-  }
-  article {
-    max-width: min(55ch);
-  }
-  main {
-    margin-block-end: 2rem;
-  }
-</style>
+<TagPage
+  title="Projects | Radical Data"
+  description="A collection of Radical Data projects."
+  folder="/projects/"
+  shortStatement="Things We've Done and Things We're Doing"
+/>

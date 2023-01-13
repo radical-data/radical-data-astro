@@ -4,6 +4,14 @@ import Hero from "@components/Hero.astro";
 import CardFilter from "@components/CardFilter.astro";
 import SeeMore from "@components/SeeMore.astro";
 import MasonryCardGrid from "@components/MasonryCardGrid.astro";
+import Card from "@components/Card.astro";
+import RadicalDataInBarcelona from "@assets/images/radical-data-in-barcelona.png";
+import GlacierKwong from "@assets/images/glacier-kwong.png";
+import SillyWalks from "@assets/images/silly-walks.png";
+import QueeringTheMap from "@assets/images/queering-the-map.jpg";
+import QueeringTheQuantifiedSelf from "@assets/images/queering-the-quantified-self.png";
+import SecurityVision from "@assets/images/security-vision.png";
+const archiveProjects = await Astro.glob("../pages/archive/*.md");
 ---
 
 <Layout
@@ -16,7 +24,77 @@ import MasonryCardGrid from "@components/MasonryCardGrid.astro";
       <h2>
         <CardFilter />
       </h2>
-      <MasonryCardGrid />
+      <MasonryCardGrid>
+        <div class="grid-item">
+          <Card
+            href="/about"
+            title="Who we are"
+            body="Radical Data is a collective using data and building tools for resistance and alternative futures."
+            type="information"
+            imgLink={RadicalDataInBarcelona}
+            imgAltText="The cofounders of Radical Data on the roof of their studio in Barcelona."
+            aspectRatio={1}
+          />
+        </div>
+        <div class="grid-item">
+          <Card
+            href="/"
+            pretitle="Interview:"
+            title="Glacier Kwong"
+            body="Three years on, how the Hong Kong protests changed tech resistance."
+            type="article"
+            imgLink={GlacierKwong}
+            imgAltText="A portrait photo of Glacier Kwong, a political activist from Hong Kong."
+            aspectRatio={16 / 9}
+          />
+        </div>
+        <div class="grid-item">
+          <Card
+            href="/"
+            title="Silly Walks"
+            posttitle="(against Surveillance Capitalism)"
+            body="A playful and functional resistance to gait detection AIs."
+            type="project"
+            imgLink={SillyWalks}
+            imgAltText="A person walking in an unusual way with an AI-generated body pose mapped to their body."
+            aspectRatio={1}
+          />
+        </div>
+        <div class="grid-item">
+          <Card
+            href="/"
+            pretitle="From the archive:"
+            title="Queering the Map"
+            body="A community-generated map of queer experience."
+            type="archive"
+            imgLink={QueeringTheMap}
+            imgAltText="A screenshot of the 'Queering the Map' website. It shows a pink map with lots of black pins on it."
+            aspectRatio={16 / 9}
+          />
+        </div>
+        <div class="grid-item">
+          <Card
+            href={archiveProjects[0].url}
+            title={archiveProjects[0].frontmatter.title}
+            body={archiveProjects[0].frontmatter.extract}
+            type="project"
+            imgLink={QueeringTheQuantifiedSelf}
+            imgAltText="A notebook with diagrams in."
+            aspectRatio={16 / 9}
+          />
+        </div>
+        <div class="grid-item">
+          <Card
+            href="/"
+            title="Security Vision"
+            body="In collaboration with Leiden University, Radical Data have been documenting and visualising the use of AI-based surveillance across the world."
+            type="project"
+            imgLink={SecurityVision}
+            imgAltText="An abstract network, floating in space."
+            aspectRatio={1}
+          />
+        </div>
+      </MasonryCardGrid>
     </article>
     <section>
       <SeeMore />
@@ -36,5 +114,27 @@ import MasonryCardGrid from "@components/MasonryCardGrid.astro";
   }
   h2 {
     max-width: 30ch;
+  }
+  .grid-item {
+    width: 100%;
+  }
+
+  .grid-item {
+    margin-block-end: 5%;
+  }
+
+  @media (min-width: 800px) {
+    .grid-item {
+      width: 48%;
+    }
+  }
+
+  .grid-item {
+    float: left;
+  }
+
+  .grid-item img {
+    display: block;
+    max-width: 100%;
   }
 </style>

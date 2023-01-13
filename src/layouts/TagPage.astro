@@ -1,0 +1,79 @@
+---
+import MasonryCardGrid from "@components/MasonryCardGrid.astro";
+import Card from "@components/Card.astro";
+import Layout from "@layouts/Layout.astro";
+
+const { title, folder, description, shortStatement } = Astro.props;
+let filteredPosts: any = [];
+
+const posts = await Astro.glob("../pages/*/*.md");
+posts.map((post) => {
+  if (post.url?.includes(folder)) {
+    filteredPosts = filteredPosts.concat([post]);
+  }
+});
+---
+
+<Layout title={title} description={description}>
+  <main>
+    <article>
+      <section>
+        <h1>{title}</h1>
+        <p>{shortStatement}</p>
+        <MasonryCardGrid
+          >{
+            filteredPosts.map((post: any) => (
+              <div class="grid-item">
+                <Card
+                  href={post.url}
+                  pretitle={post.frontmatter.status}
+                  title={post.frontmatter.title}
+                  body={post.frontmatter.extract}
+                  type="project"
+                  imgLink={post.frontmatter.featuredImage}
+                  aspectRatio={eval(post.frontmatter.aspectRatio)}
+                  imgAltText={post.frontmatter.featuredImageAlt}
+                />
+              </div>
+            ))
+          }</MasonryCardGrid
+        >
+      </section>
+    </article>
+  </main>
+</Layout>
+<style>
+  ul,
+  li {
+    font-family: "LindenHill";
+  }
+  article {
+    /* max-width: min(55ch); */
+  }
+  main {
+    margin-block-end: 2rem;
+  }
+
+  .grid-item {
+    width: 100%;
+  }
+
+  .grid-item {
+    margin-block-end: 5%;
+  }
+
+  @media (min-width: 800px) {
+    .grid-item {
+      width: 48%;
+    }
+  }
+
+  .grid-item {
+    float: left;
+  }
+
+  .grid-item img {
+    display: block;
+    max-width: 100%;
+  }
+</style>

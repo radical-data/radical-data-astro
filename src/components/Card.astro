@@ -6,12 +6,22 @@ export interface Props {
   type: string;
   imgLink?: string;
   imgAltText?: string;
+  aspectRatio?: number;
   pretitle?: string;
   posttitle?: string;
 }
 
-const { href, pretitle, posttitle, title, body, type, imgLink, imgAltText } =
-  Astro.props;
+const {
+  href,
+  pretitle,
+  posttitle,
+  title,
+  body,
+  type,
+  imgLink,
+  imgAltText,
+  aspectRatio,
+} = Astro.props;
 
 import { Picture } from "@astrojs/image/components";
 ---
@@ -30,7 +40,8 @@ import { Picture } from "@astrojs/image/components";
       src={imgLink}
       widths={[400, 800]}
       sizes="(max-width: 800px) 100vw, 800px"
-      formats={["avif", "jpeg", "png", "webp"]}
+      formats={["avif", "webp"]}
+      aspectRatio={aspectRatio}
       alt={imgAltText}
     />
   </a>

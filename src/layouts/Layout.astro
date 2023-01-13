@@ -24,7 +24,13 @@ import { SEO } from "astro-seo";
       data-domain="radicaldata.org"
       src="https://plausible.io/js/plausible.js"
     ></script>
-    <SEO title={title} description={description} twitter="[site={site}]" />
+    <SEO
+      title={title}
+      description={description}
+      twitter={{
+        creator: "@radical_data",
+      }}
+    />
   </head>
 
   <body>
