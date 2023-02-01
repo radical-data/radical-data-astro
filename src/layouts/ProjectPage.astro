@@ -1,0 +1,24 @@
+---
+import Layout from "./Layout.astro";
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<Layout title={post.data.title} description="eggs">
+  <main>
+    <h1>{post.data.title}</h1>
+    <h2>{post.data.excerpt}</h2>
+    <!-- <p>
+      Published on {
+        new Date(post.data.publishDate).toLocaleDateString("en-GB", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })
+      }
+    </p> -->
+    <article>
+      <Content />
+    </article>
+  </main>
+</Layout>
