@@ -1,15 +1,28 @@
 ---
 title: Queering the Quantified Self
 extract: Bringing queerness to self-tracking.
-status: "active"
-featuredImage: "../../src/assets/images/queering-the-quantified-self.png"
+status: active
+featuredImage: ../../src/assets/images/queering-the-quantified-self.png
 aspectRatio: 16/9
 atribution: financed by 2022 Landecker Democracy Fellowship & MediaFutures
-collaborators: 
+collaborators:
+  - Alfred Landecker Foundation
+  - Humanity in Action
+  - Affect Lab
 externalLink:
- - https://qself.app
- - https://humanityinaction.org/action_project/landecker-democracy-fellowship-queering-the-quantified-self/
-layout: "../../layouts/ProjectLayout.astro"
+  - 'https://qself.app'
+  - >-
+    https://humanityinaction.org/action_project/landecker-democracy-fellowship-queering-the-quantified-self
+layout: ../../layouts/ProjectLayout.astro
+attribution:
+  - >-
+    The project is supported by funding from the Landecker Democracy Fellowship
+    by Humanity in Action in partnership with the Alfred Landecker Foundation.
+tags:
+  - education
+  - health
+  - research
+  - queer
 ---
 
 Queering the Quantified Self is a platform for people to understand their bodies with data.
@@ -22,4 +35,6 @@ Through owning both the tools and the data, Queering the Quantified Self propose
 
 Looking critically to the Quantified Self movement and its alignment with hyper-efficiency and masculinity, this project explores queer approaches to self-tracking.  We believe that a queer perspective can reorientate body measurements towards collectivity, subversion, and being comfortable in individuals’ bodies.
 
-Queering the Quantified Self is an ongoing research project that host writing, workshops and the development of the digital tool Qself.
+Queering the Quantified Self is an ongoing research project that incorporates multiple outputs: writing a book, workshops and the development of the digital tool Qself.
+
+![A spredsheet that organises moments of vulnerabilty by day, length, reason, assosiated emotions and company](/src/assets/media/queering-the-quantified-self.png "")
