@@ -1,17 +1,11 @@
 ---
-import MasonryCardGrid from "@components/MasonryCardGrid.astro";
+import CardGrid from "@components/CardGrid.astro";
 import Card from "@components/Card.astro";
 import Layout from "@layouts/Layout.astro";
 
-const { title, folder, description, shortStatement } = Astro.props;
-let filteredPosts: any = [];
-
-const posts = await Astro.glob("../pages/*/*.md");
-posts.map((post) => {
-  if (post.url?.includes(folder)) {
-    filteredPosts = filteredPosts.concat([post]);
-  }
-});
+const { title, collection, description, shortStatement } = Astro.props;
+import { getCollection } from "astro:content";
+const posts = await getCollection(collection);
 ---
 
 <Layout title={title} description={description}>
@@ -20,24 +14,24 @@ posts.map((post) => {
       <section>
         <h1>{title}</h1>
         <p>{shortStatement}</p>
-        <MasonryCardGrid
-          >{
-            filteredPosts.map((post: any) => (
-              <div class="grid-item">
+        <CardGrid>
+          {
+            posts.map((post: any) => (
+              <div>
                 <Card
-                  href={post.url}
-                  pretitle={post.frontmatter.status}
-                  title={post.frontmatter.title}
-                  body={post.frontmatter.extract}
+                  href={`${collection}/${post.slug}`}
+                  pretitle={post.data.status}
+                  title={post.data.title}
+                  body={post.data.extract}
                   type="project"
-                  imgLink={post.frontmatter.featuredImage}
-                  aspectRatio={eval(post.frontmatter.aspectRatio)}
-                  imgAltText={post.frontmatter.featuredImageAlt}
+                  imgLink={post.data.featuredImage}
+                  aspectRatio={eval(post.data.aspectRatio)}
+                  imgAltText={post.data.featuredImageAlt}
                 />
               </div>
             ))
-          }</MasonryCardGrid
-        >
+          }
+        </CardGrid>
       </section>
     </article>
   </main>

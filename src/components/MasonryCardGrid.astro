@@ -5,6 +5,7 @@
   type="text/javascript"
   is:inline
   src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"
+  sync
 ></script>
 <script
   type="text/javascript"
@@ -30,9 +31,9 @@
   imagesLoaded(grid).on("progress", function () {
     msnry.layout();
     // hack
-    setTimeout(function () {
-      msnry.layout();
-    }, 1000);
+    // setTimeout(function () {
+    //   msnry.layout();
+    // }, 1000);
   });
 
   imagesLoaded(grid).on("always", function () {
@@ -42,10 +43,10 @@
   msnry.layout();
   setTimeout(function () {
     msnry.layout();
-  }, 2000);
-  setTimeout(function () {
-    msnry.layout();
-  }, 10000);
+  }, 300);
+  // setTimeout(function () {
+  //   msnry.layout();
+  // }, 10000);
 </script>
 <style>
   * {

@@ -3,7 +3,7 @@ import Layout from "@layouts/Layout.astro";
 import Hero from "@components/Hero.astro";
 import CardFilter from "@components/CardFilter.astro";
 import SeeMore from "@components/SeeMore.astro";
-import MasonryCardGrid from "@components/MasonryCardGrid.astro";
+import CardGrid from "@components/CardGrid.astro";
 import Card from "@components/Card.astro";
 import RadicalDataInBarcelona from "@assets/images/radical-data-in-barcelona.png";
 import GlacierKwong from "@assets/images/glacier-kwong.png";
@@ -24,8 +24,8 @@ const archiveProjects = await Astro.glob("../pages/archive/*.md");
       <h2>
         <CardFilter />
       </h2>
-      <MasonryCardGrid>
-        <div class="grid-item">
+      <CardGrid>
+        <div>
           <Card
             href="/about"
             title="Who we are"
@@ -36,7 +36,7 @@ const archiveProjects = await Astro.glob("../pages/archive/*.md");
             aspectRatio={1}
           />
         </div>
-        <div class="grid-item">
+        <div>
           <Card
             href="/"
             pretitle="Interview:"
@@ -48,7 +48,7 @@ const archiveProjects = await Astro.glob("../pages/archive/*.md");
             aspectRatio={16 / 9}
           />
         </div>
-        <div class="grid-item">
+        <div>
           <Card
             href="/"
             title="Silly Walks"
@@ -60,7 +60,7 @@ const archiveProjects = await Astro.glob("../pages/archive/*.md");
             aspectRatio={1}
           />
         </div>
-        <div class="grid-item">
+        <div>
           <Card
             href="/"
             pretitle="From the archive:"
@@ -72,7 +72,7 @@ const archiveProjects = await Astro.glob("../pages/archive/*.md");
             aspectRatio={16 / 9}
           />
         </div>
-        <div class="grid-item">
+        <div>
           <Card
             href={archiveProjects[0].url}
             title={archiveProjects[0].frontmatter.title}
@@ -83,7 +83,7 @@ const archiveProjects = await Astro.glob("../pages/archive/*.md");
             aspectRatio={16 / 9}
           />
         </div>
-        <div class="grid-item">
+        <div>
           <Card
             href="/"
             title="Security Vision"
@@ -94,7 +94,7 @@ const archiveProjects = await Astro.glob("../pages/archive/*.md");
             aspectRatio={1}
           />
         </div>
-      </MasonryCardGrid>
+      </CardGrid>
     </article>
     <section>
       <SeeMore />
@@ -114,27 +114,5 @@ const archiveProjects = await Astro.glob("../pages/archive/*.md");
   }
   h2 {
     max-width: 30ch;
-  }
-  .grid-item {
-    width: 100%;
-  }
-
-  .grid-item {
-    margin-block-end: 5%;
-  }
-
-  @media (min-width: 800px) {
-    .grid-item {
-      width: 48%;
-    }
-  }
-
-  .grid-item {
-    float: left;
-  }
-
-  .grid-item img {
-    display: block;
-    max-width: 100%;
   }
 </style>
