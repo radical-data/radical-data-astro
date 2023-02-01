@@ -2,7 +2,7 @@
 title: Comapping
 extract: Exploring how maps can be used as a tool for communities.
 status: active
-featuredImage: ../../src/assets/images/comapping.jpg
+featuredImage: /src/assets/media/comapping.jpg
 featuredImageAlt: Holding a phone with an app called Data Walk Collector
 aspectRatio: 1
 atribution: financed by 2022 Landecker Democracy Fellowship

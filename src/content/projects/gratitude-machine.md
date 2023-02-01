@@ -2,7 +2,7 @@
 title: The Gratitude Machine
 extract: An AI learning how to be thankful.
 status: dormant
-featuredImage: ../../src/assets/images/gratitude-machine.png
+featuredImage: /src/assets/media/gratitude-machine.png
 featuredImageAlt: A screenshot of The Gratitude Machine
 aspectRatio: 9/16
 atribution: developed during FIBER Festival

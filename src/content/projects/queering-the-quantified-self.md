@@ -2,7 +2,7 @@
 title: Queering the Quantified Self
 extract: Bringing queerness to self-tracking.
 status: active
-featuredImage: ../../src/assets/images/queering-the-quantified-self.png
+featuredImage: /src/assets/media/queering-the-quantified-self.png
 aspectRatio: 16/9
 atribution: financed by 2022 Landecker Democracy Fellowship & MediaFutures
 collaborators:
