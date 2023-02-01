@@ -78,6 +78,104 @@ export default defineConfig({
           },
         ],
       },
+      {
+        name: "event",
+        label: "Events",
+        path: "src/content/events",
+        format: "md",
+        ui: {
+          filename: {
+            readonly: false,
+            slugify: (values) => {
+              return `${values?.title
+                ?.toLowerCase()
+                .replace(/ /g, "-")
+                .replace("!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~", "")}`;
+            },
+          },
+        },
+        fields: [
+          {
+            type: "string",
+            name: "title",
+            label: "Title",
+            isTitle: true,
+            required: true,
+          },
+          {
+            type: "datetime",
+            name: "date",
+            label: "Date",
+            required: true,
+          },
+          {
+            type: "datetime",
+            name: "endDate",
+            label: "End Date",
+          },
+          {
+            type: "string",
+            name: "description",
+            label: "Description",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "location",
+            label: "Location",
+          },
+          {
+            type: "string",
+            name: "link",
+            label: "Link",
+            list: true,
+          },
+          {
+            type: "image",
+            name: "featuredImage",
+            label: "Featured Image",
+          },
+        ],
+      },
+      {
+        name: "testimonials",
+        label: "Testimonials",
+        path: "src/content/testimonials",
+        format: "md",
+        ui: {
+          filename: {
+            readonly: false,
+            slugify: (values) => {
+              return `${values?.title
+                ?.toLowerCase()
+                .replace(/ /g, "-")
+                .replace("!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~", "")}`;
+            },
+          },
+        },
+        fields: [
+          {
+            type: "string",
+            name: "title",
+            label: "Title",
+            isTitle: true,
+            required: true,
+          },
+          {
+            type: "rich-text",
+            name: "body",
+            label: "Body",
+            isBody: true,
+            required: true,
+          },
+          {
+            type: "reference",
+            name: "related",
+            label: "Related",
+            collections: ["event"],
+          },
+        ],
+      },
     ],
   },
 });
