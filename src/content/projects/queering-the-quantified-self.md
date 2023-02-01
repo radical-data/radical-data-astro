@@ -13,7 +13,6 @@ externalLink:
   - 'https://qself.app'
   - >-
     https://humanityinaction.org/action_project/landecker-democracy-fellowship-queering-the-quantified-self
-layout: ../../layouts/ProjectLayout.astro
 attribution:
   - >-
     The project is supported by funding from the Landecker Democracy Fellowship

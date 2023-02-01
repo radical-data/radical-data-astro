@@ -10,7 +10,6 @@ collaborators:
   - Guerrilla Architects
 externalLinks:
   - 'https://comapping.org'
-layout: ../../layouts/ProjectLayout.astro
 attribution:
   - >-
     The project is supported by funding from the Landecker Democracy Fellowship

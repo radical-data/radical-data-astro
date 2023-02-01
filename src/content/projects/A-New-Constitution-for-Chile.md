@@ -3,6 +3,7 @@ title: A New Constitution for Chile
 extract: MRP analysis to change a dictator's constitution.
 status: complete
 featuredImage: /src/assets/media/estimates-for-apruebo-chile.png
+aspectRatio: 16/9
 tags:
   - digital campaign kit
   - latin america

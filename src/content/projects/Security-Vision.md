@@ -3,6 +3,7 @@ title: Security Vision
 extract: Documenting and visualising the use of AIs across the world.
 status: active
 featuredImage: /src/assets/media/security-vision.png
+aspectRatio: 16/9
 attribution:
   - ''
 collaborators:

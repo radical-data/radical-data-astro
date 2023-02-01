@@ -11,6 +11,7 @@ tags:
   - Bayesian statistics
   - expert elicitation
 featuredImage: /src/assets/media/stephen-leonardi-ljNJn0ommQ8-unsplash.jpg
+aspectRatio: 1
 ---
 
 Whilst we do not have multiple versions of humanity to test the risk of self-destruction, the Drake equation tells us that we (probably) have multiple intelligent civilisations in the observable galaxy. Failing to detect signs of them suggests that civilisations tend to self-destruct early in their lifespan.

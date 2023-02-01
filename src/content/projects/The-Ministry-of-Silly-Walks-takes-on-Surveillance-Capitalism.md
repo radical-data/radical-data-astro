@@ -4,6 +4,7 @@ extract: 'Playing with humour, performance and AI.'
 status: dormant
 featuredImage: >-
   /src/assets/media/the-ministry-of-silly-walks-takes-on-surveillance-capitalism.png
+aspectRatio: 9/16
 tags:
   - tools
   - performance

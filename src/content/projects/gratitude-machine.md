@@ -9,7 +9,6 @@ atribution: developed during FIBER Festival
 collaborators:
   - Milton Almonacid
 externalLinks: null
-layout: ../../layouts/ProjectLayout.astro
 tags:
   - decolonial
   - AI

@@ -5,6 +5,7 @@ extract: >-
   intimacy.
 status: preparing
 featuredImage: /src/assets/media/microsurveillance.png
+aspectRatio: 1
 tags:
   - community
   - performance

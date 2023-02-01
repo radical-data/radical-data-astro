@@ -3,7 +3,7 @@ title: Qself
 extract: 'A platform for people to create, own and analyse information about our bodies.'
 status: active
 featuredImage: /src/assets/media/qqs_slides_compressed.jpg
-aspectRatio: 1
+aspectRatio: 16/9
 atribution: financed by MediaFutures
 collaborators:
   - Odd Studio
@@ -11,7 +11,6 @@ collaborators:
 externalLink:
   - 'https://qself.app'
   - 'https://mediafutures.eu/projects/queering-the-quantified-self'
-layout: ../../layouts/ProjectLayout.astro
 attribution:
   - >-
     This project has received funding from the European Union’s framework
