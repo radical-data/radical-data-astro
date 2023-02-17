@@ -6,6 +6,7 @@ import Card from "@components/Card.astro";
   <slot />
 </div>
 <style>
+  /* @supports (grid-template-rows: masonry) { */
   .link-card-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -18,4 +19,5 @@ import Card from "@components/Card.astro";
       grid-template-columns: 1fr 1fr;
     }
   }
+  /* } */
 </style>

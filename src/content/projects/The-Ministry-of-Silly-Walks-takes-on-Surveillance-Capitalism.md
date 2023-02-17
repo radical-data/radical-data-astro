@@ -2,8 +2,7 @@
 title: The Ministry of Silly Walks takes on Surveillance Capitalism
 extract: 'Playing with humour, performance and AI.'
 status: dormant
-featuredImage: >-
-  /src/assets/media/the-ministry-of-silly-walks-takes-on-surveillance-capitalism.png
+featuredImage: /src/assets/media/the-ministry-of-silly-walks-takes-on-surveillance-capitalism.png
 aspectRatio: 9/16
 tags:
   - tools
@@ -31,4 +30,3 @@ As an antidote to this, we are inspired by non-violent protest movements such as
 We want to recenter our way of subverting this hopeless future around the body and the pleasure, affirming our capacity to create and subverting this tools and reimagining them in the hands of the people.
 
 ![A white and black series of pictures of silly walks by a character of the Monthy Payton](/src/assets/media/monty-python.jpg)
-
