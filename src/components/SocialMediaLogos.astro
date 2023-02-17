@@ -3,53 +3,47 @@ interface Props {
   colorMode?: string;
 }
 
-const { colorMode = "black" } = Astro.props;
+const { colorMode = 'black' } = Astro.props;
 
-import instagramLogo from "@assets/images/instagram.svg";
-import twitterLogo from "@assets/images/twitter.svg";
-import youtubeLogo from "@assets/images/youtube.svg";
-import linkedinLogo from "@assets/images/linkedin.svg";
-import tiktokLogo from "@assets/images/tiktok.svg";
-import facebookLogo from "@assets/images/facebook.svg";
-import githubLogo from "@assets/images/github.svg";
+import instagramLogo from '@assets/media/instagram.svg';
+import twitterLogo from '@assets/media/twitter.svg';
+import youtubeLogo from '@assets/media/youtube.svg';
+import linkedinLogo from '@assets/media/linkedin.svg';
+import tiktokLogo from '@assets/media/tiktok.svg';
+import githubLogo from '@assets/media/github.svg';
 
-import socialMediaLinks from "@assets/data/social-media-links.json";
+import socialMediaLinks from '@assets/data/social-media-links.json';
 ---
 
 <ul class="social-media-icons" class={colorMode}>
   <li>
-    <a href={socialMediaLinks.social.instagram}
+    <a href={socialMediaLinks.instagram}
       ><img class={colorMode} src={instagramLogo} alt="Instagram logo" />
     </a>
   </li>
   <li>
-    <a href={socialMediaLinks.social.twitter}
-      ><img class={colorMode} src={twitterLogo} alt="Twitter logo" />
-    </a>
-  </li>
-  <li>
-    <a href={socialMediaLinks.social.youtube}
-      ><img class={colorMode} src={youtubeLogo} alt="YouTube logo" />
-    </a>
-  </li>
-  <li>
-    <a href={socialMediaLinks.social.linkedin}
+    <a href={socialMediaLinks.linkedin}
       ><img class={colorMode} src={linkedinLogo} alt="LinkedIn logo" />
     </a>
   </li>
   <li>
-    <a href={socialMediaLinks.social.tiktok}
+    <a href={socialMediaLinks.tiktok}
       ><img class={colorMode} src={tiktokLogo} alt="TikTok logo" />
     </a>
   </li>
   <li>
-    <a href={socialMediaLinks.social.facebook}
-      ><img class={colorMode} src={facebookLogo} alt="Facebook logo" />
+    <a href={socialMediaLinks.github}
+      ><img class={colorMode} src={githubLogo} alt="GitHub logo" />
     </a>
   </li>
   <li>
-    <a href={socialMediaLinks.social.github}
-      ><img class={colorMode} src={githubLogo} alt="GitHub logo" />
+    <a href={socialMediaLinks.twitter}
+      ><img class={colorMode} src={twitterLogo} alt="Twitter logo" />
+    </a>
+  </li>
+  <li>
+    <a href={socialMediaLinks.youtube}
+      ><img class={colorMode} src={youtubeLogo} alt="YouTube logo" />
     </a>
   </li>
 </ul>
@@ -63,7 +57,7 @@ import socialMediaLinks from "@assets/data/social-media-links.json";
     display: flex;
     align-items: stretch;
     justify-content: space-between;
-    width: 100%;
+    width: clamp(50%, 20em, 100%);
     margin: 0;
     padding: 0;
   }
@@ -90,8 +84,7 @@ import socialMediaLinks from "@assets/data/social-media-links.json";
   }
 
   .white {
-    filter: invert(100%) sepia(96%) saturate(15%) hue-rotate(212deg)
-      brightness(104%) contrast(104%);
+    filter: invert(100%);
   }
 
   .social-media-icons img {

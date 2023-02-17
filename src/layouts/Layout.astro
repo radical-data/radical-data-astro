@@ -1,90 +1,46 @@
 ---
+import '~/styles/styles.css';
+import SEO from './SEO.astro';
+
 export interface Props {
   title: string;
-  description: string;
 }
 
-const { title, description } = Astro.props;
-
-import Navigation from "@components/Navigation.astro";
-import Footer from "@components/Footer.astro";
-
-import { SEO } from "astro-seo";
+const { title } = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<!-- Remove the hard-coded dark mode and implement your own if you're into that sort of thing -->
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <script
-      defer
-      data-domain="radicaldata.org"
-      src="https://plausible.io/js/plausible.js"
-    ></script>
-    <SEO
-      title={title}
-      description={description}
-      twitter={{
-        creator: "@radical_data",
-      }}
+    <meta name="theme-color" content="#9EA3FA" />
+
+    <SEO />
+
+    <title>{title}</title>
+
+    <!-- preload fonts -->
+
+    <link
+      rel="preload"
+      href="/fonts/SilkSerif-ExtraLight.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin=""
+    />
+    <link
+      rel="preload"
+      href="/fonts/SilkSerif-Light.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin=""
     />
   </head>
-
   <body>
-    <header>
-      <Navigation />
-    </header>
     <slot />
-    <Footer />
-    <style is:global>
-      :root {
-        --accent: black;
-        --border: 0.3rem solid var(--accent);
-        --off-black: #2f2f2f;
-        --grey: #686868;
-        --lighter-grey: #898989;
-        --off-white: #f6f6f6;
-        --rd-red: #cb431a;
-        --rd-light-blue: #89cff0;
-        --rd-blue: #00b8ff;
-        --rd-yellow: #ffda55;
-      }
-
-      @font-face {
-        font-family: Urbanist;
-        src: url("/fonts/Urbanist-VariableFont_wght.woff2") format("woff2");
-      }
-
-      @font-face {
-        font-family: LindenHill;
-        src: url("/fonts/LindenHill-Regular.woff2") format("woff2");
-      }
-
-      html {
-        font-family: Urbanist, "Trebuchet MS", Helvetica, sans-serif;
-        font-size: clamp(1rem, 0.75rem + 1.5vw, 2rem);
-        background-color: var(--off-white);
-        margin: 0;
-      }
-      body {
-        margin: auto;
-        /* padding: 1.5rem; */
-      }
-      main {
-        margin: auto;
-        max-width: min(68ch, 90vw);
-      }
-      p,
-      small {
-        font-family: LindenHill, Georgia, serif;
-      }
-
-      code {
-        font-family: "Courier New", Courier, monospace;
-      }
-    </style>
   </body>
 </html>

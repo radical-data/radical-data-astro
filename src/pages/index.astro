@@ -1,118 +1,106 @@
 ---
-import Layout from "@layouts/Layout.astro";
-import Hero from "@components/Hero.astro";
-import CardFilter from "@components/CardFilter.astro";
-import SeeMore from "@components/SeeMore.astro";
-import CardGrid from "@components/CardGrid.astro";
-import Card from "@components/Card.astro";
-import RadicalDataInBarcelona from "./assets/media/radical-data-in-barcelona.png";
-import GlacierKwong from "@assets/media/glacier-kwong.png";
-import SillyWalks from "@assets/media/silly-walks.png";
-import QueeringTheMap from "@assets/media/queering-the-map.jpg";
-import QueeringTheQuantifiedSelf from "@assets/media/queering-the-quantified-self.png";
-import SecurityVision from "@assets/media/security-vision.png";
-const archiveProjects = await Astro.glob("../pages/archive/*.md");
+import MailingList from '~/components/MailingList.astro';
+import SocialMediaLogos from '~/components/SocialMediaLogos.astro';
+import Layout from '../layouts/Layout.astro';
+// let currentYear = new Date().getFullYear();
 ---
 
 <Layout
-  title="Radical Data | Data, Art and Activism"
-  description="Radical Data is a collective using data and building tools for resistance and alternative futures."
+  title="Radical Data | Claiming data as a tool for resistance and a million liberations"
 >
   <main>
-    <Hero />
-    <article>
+    <article class="region prose wrapper hero">
+      <h1>Radical Data</h1>
+
       <h2>
-        <CardFilter />
+        Claiming <em>data</em> as a tool for <em>resistance</em> and a million <span
+          class="gradient-text">liberations</span
+        >.
       </h2>
-      <CardGrid>
-        <div>
-          <Card
-            href="/about"
-            title="Who we are"
-            body="Radical Data is a collective using data and building tools for resistance and alternative futures."
-            type="information"
-            imgLink={RadicalDataInBarcelona}
-            imgAltText="The cofounders of Radical Data on the roof of their studio in Barcelona."
-            aspectRatio={1}
-          />
-        </div>
-        <div>
-          <Card
-            href="/"
-            pretitle="Interview:"
-            title="Glacier Kwong"
-            body="Three years on, how the Hong Kong protests changed tech resistance."
-            type="article"
-            imgLink={GlacierKwong}
-            imgAltText="A portrait photo of Glacier Kwong, a political activist from Hong Kong."
-            aspectRatio={16 / 9}
-          />
-        </div>
-        <div>
-          <Card
-            href="/"
-            title="Silly Walks"
-            posttitle="(against Surveillance Capitalism)"
-            body="A playful and functional resistance to gait detection AIs."
-            type="project"
-            imgLink={SillyWalks}
-            imgAltText="A person walking in an unusual way with an AI-generated body pose mapped to their body."
-            aspectRatio={1}
-          />
-        </div>
-        <div>
-          <Card
-            href="/"
-            pretitle="From the archive:"
-            title="Queering the Map"
-            body="A community-generated map of queer experience."
-            type="archive"
-            imgLink={QueeringTheMap}
-            imgAltText="A screenshot of the 'Queering the Map' website. It shows a pink map with lots of black pins on it."
-            aspectRatio={16 / 9}
-          />
-        </div>
-        <div>
-          <Card
-            href={archiveProjects[0].url}
-            title={archiveProjects[0].frontmatter.title}
-            body={archiveProjects[0].frontmatter.extract}
-            type="project"
-            imgLink={QueeringTheQuantifiedSelf}
-            imgAltText="A notebook with diagrams in."
-            aspectRatio={16 / 9}
-          />
-        </div>
-        <div>
-          <Card
-            href="/"
-            title="Security Vision"
-            body="In collaboration with Leiden University, Radical Data have been documenting and visualising the use of AI-based surveillance across the world."
-            type="project"
-            imgLink={SecurityVision}
-            imgAltText="An abstract network, floating in space."
-            aspectRatio={1}
-          />
-        </div>
-      </CardGrid>
     </article>
-    <section>
-      <SeeMore />
-    </section>
+
+    <article class="region prose wrapper">
+      <ul role="list" class="grid features">
+        <li class="flow">
+          <h3>collective</h3>
+          <p>
+            We are a collective of <em
+              >mathematicians, technologists, dancers and designers</em
+            > who believe that data, used with care, can move us towards a world
+            that is <em>autonomous, just and joyful</em>.
+          </p>
+        </li>
+        <li class="flow">
+          <h3>studio</h3>
+          <p>
+            We create <em>data analyses</em> and <em>digital tools</em> that are
+            infused with queerness and decoloniality.
+          </p>
+        </li>
+
+        <li class="flow">
+          <h3>research</h3>
+          <p>
+            We research how data is and can be used. For two years, we've been
+            adding the best of what we've found to our <em>archive</em>.
+          </p>
+        </li>
+
+        <li class="flow">
+          <h3>education</h3>
+          <p>
+            We want to see activists, instead of fearing technology, use it as a
+            tool shape the world. To do this, we regularly run <em>workshops</em
+            > and create <em>videos</em> for social media.
+          </p>
+        </li>
+      </ul>
+    </article>
+
+    <article class="region prose wrapper">
+      <h2>Our Projects</h2>
+      <h3>We're making data analyses, digital tools and writing books.</h3>
+      <iframe
+        class="airtable-embed"
+        src="https://airtable.com/embed/shrAb6rQcbGevZtlb?backgroundColor=red&viewControls=on"
+        width="100%"
+        height="533"
+        style="background: transparent; border: 1px solid #ccc;"></iframe>
+    </article>
+
+    <article class="region prose wrapper">
+      <h2>The Radical Data Archive</h2>
+      <h3>We research ways data is being used around the world.</h3>
+      <iframe
+        class="airtable-embed"
+        src="https://airtable.com/embed/shrN1QEkjzow25vTf?backgroundColor=red&viewControls=on"
+        frameborder="0"
+        width="100%"
+        height="533"
+        style="background: transparent; border: 1px solid #ccc;"></iframe>
+      <p>
+        Think a great project is missing from our archive? Submit it <a
+          href="https://airtable.com/shr2cGQbbfIogLrun">here</a
+        >!
+      </p>
+    </article>
+
+    <footer class="region prose wrapper">
+      <h2>Let's stay in touch.</h2>
+      <section>
+        <p>Join our <em>mailing list</em> to see what we do next:</p>
+        <MailingList />
+      </section>
+      <section>
+        <p>
+          and follow us on <em>social media</em> to see what we're doing now:
+        </p>
+        <SocialMediaLogos colorMode="white" />
+      </section>
+      <p>or <a href="https://airtable.com/shrBpNUSMSTQpOXQv">contact</a> us.</p>
+      <!-- <section>
+        <p id="copyright">© {currentYear} Radical Data. All rights reserved.</p>
+      </section> -->
+    </footer>
   </main>
 </Layout>
-
-<style>
-  main {
-    margin: auto;
-    max-width: min(68ch, 90vw);
-  }
-  h1 {
-    font-size: 3rem;
-    font-weight: 800;
-    margin: 0;
-  }
-  h2 {
-    max-width: 30ch;
-  }
-</style>

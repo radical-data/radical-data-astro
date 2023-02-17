@@ -1,18 +1,8 @@
-import { defineConfig } from "astro/config";
-
-// https://astro.build/config
-import sitemap from "@astrojs/sitemap";
-
-// https://astro.build/config
-import image from "@astrojs/image";
+import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://radicaldata.org",
-  integrations: [
-    sitemap(),
-    image({
-      serviceEntryPoint: "@astrojs/image/sharp",
-    }),
-  ],
+  site: 'https://radicaldata.org',
+  integrations: [sitemap()],
 });
