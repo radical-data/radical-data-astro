@@ -3,15 +3,15 @@ import MailingList from "~/components/MailingList.astro";
 import SocialMediaLogos from "~/components/SocialMediaLogos.astro";
 import Layout from "../layouts/Layout.astro";
 // let currentYear = new Date().getFullYear();
+import { SITE } from "../config";
+import DarkModeToggle from "~/components/DarkModeToggle.astro";
 ---
 
-<Layout
-  title="Radical Data | Claiming data as a tool for resistance and a million liberations"
->
+<Layout title={`${SITE.title} | ${SITE.description}`}>
   <DarkModeToggle />
   <main>
     <article class="region prose wrapper hero">
-      <h1>Radical Data</h1>
+      <h1>{SITE.name}</h1>
 
       <h2>
         Claiming <em>data</em> as a tool for <em>joy</em> and a million <span
