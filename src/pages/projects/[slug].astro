@@ -32,16 +32,28 @@ console.log(fields);
   <main>
     <article class="region prose wrapper">
       <h1>{fields.Name}</h1>
-      <Picture
-        src={fields["Featured Image"][0].url}
-        widths={[400, 800, 1200]}
-        aspectRatio={1}
-        alt="descriptive text"
-      />
-      <p>Tags:</p>
-      <ul>
-        {fields.Tags.map((tag: string) => <li>{tag}</li>)}
-      </ul>
+      {
+        fields["Featured Image"] && (
+          <Picture
+            src={fields["Featured Image"][0].url}
+            widths={[400, 800, 1200]}
+            aspectRatio={1}
+            alt=""
+          />
+        )
+      }
+      {
+        fields["Tags"] && (
+          <>
+            <p>Tags:</p>
+            <ul>
+              {fields.Tags.map((tag: string) => (
+                <li>{tag}</li>
+              ))}
+            </ul>
+          </>
+        )
+      }
       <p>{fields.Content}</p>
     </article>
   </main>
