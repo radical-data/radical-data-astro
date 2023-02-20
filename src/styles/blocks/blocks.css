@@ -27,7 +27,7 @@ input {
   font-family: var(--font-heading);
   font-size: inherit;
 }
-input[type='submit'] {
+input[type="submit"] {
   background-color: none;
   font-weight: 800;
 }
