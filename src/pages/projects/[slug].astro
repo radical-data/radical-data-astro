@@ -1,0 +1,42 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { slugify } from "~/components/slugify";
+export async function getStaticPaths() {
+  const response = await fetch(
+    `https://api.airtable.com/v0/${
+      import.meta.env.DB_ID
+    }/Projects?view=Grid%20view`,
+    {
+      headers: {
+        Authorization: `Bearer ${import.meta.env.DB_TOKEN}`,
+      },
+    }
+  );
+  const data = await response.json();
+  return data.records.map((project: any) => {
+    return {
+      params: { slug: slugify(project.fields.Name) },
+      props: { fields: project.fields },
+    };
+  });
+}
+
+const { slug } = Astro.params;
+slug; // just to get rid of 'value never read'
+const { fields } = Astro.props;
+console.log(fields);
+---
+
+<Layout title={fields.Name}>
+  <main>
+    <article class="region prose wrapper">
+      <h1>{fields.Name}</h1>
+      <img src={fields["Featured Image"][0].url} alt="Girl in a jacket" />
+      <p>Tags:</p>
+      <ul>
+        {fields.Tags.map((tag: string) => <li>{tag}</li>)}
+      </ul>
+      <p>{fields.Content}</p>
+    </article>
+  </main>
+</Layout>
