@@ -1,49 +1,43 @@
 ---
-interface Props {
-  colorMode?: string;
-}
+import instagramLogo from "@assets/media/instagram.svg";
+import twitterLogo from "@assets/media/twitter.svg";
+import youtubeLogo from "@assets/media/youtube.svg";
+import linkedinLogo from "@assets/media/linkedin.svg";
+import tiktokLogo from "@assets/media/tiktok.svg";
+import githubLogo from "@assets/media/github.svg";
 
-const { colorMode = 'black' } = Astro.props;
-
-import instagramLogo from '@assets/media/instagram.svg';
-import twitterLogo from '@assets/media/twitter.svg';
-import youtubeLogo from '@assets/media/youtube.svg';
-import linkedinLogo from '@assets/media/linkedin.svg';
-import tiktokLogo from '@assets/media/tiktok.svg';
-import githubLogo from '@assets/media/github.svg';
-
-import socialMediaLinks from '@assets/data/social-media-links.json';
+import socialMediaLinks from "@assets/data/social-media-links.json";
 ---
 
-<ul class="social-media-icons" class={colorMode}>
+<ul class="social-media-icons">
   <li>
     <a href={socialMediaLinks.instagram}
-      ><img class={colorMode} src={instagramLogo} alt="Instagram logo" />
+      ><img src={instagramLogo.src} alt="Instagram logo" />
     </a>
   </li>
   <li>
     <a href={socialMediaLinks.linkedin}
-      ><img class={colorMode} src={linkedinLogo} alt="LinkedIn logo" />
+      ><img src={linkedinLogo.src} alt="LinkedIn logo" />
     </a>
   </li>
   <li>
     <a href={socialMediaLinks.tiktok}
-      ><img class={colorMode} src={tiktokLogo} alt="TikTok logo" />
+      ><img src={tiktokLogo.src} alt="TikTok logo" />
     </a>
   </li>
   <li>
     <a href={socialMediaLinks.github}
-      ><img class={colorMode} src={githubLogo} alt="GitHub logo" />
+      ><img src={githubLogo.src} alt="GitHub logo" />
     </a>
   </li>
   <li>
     <a href={socialMediaLinks.twitter}
-      ><img class={colorMode} src={twitterLogo} alt="Twitter logo" />
+      ><img src={twitterLogo.src} alt="Twitter logo" />
     </a>
   </li>
   <li>
     <a href={socialMediaLinks.youtube}
-      ><img class={colorMode} src={youtubeLogo} alt="YouTube logo" />
+      ><img src={youtubeLogo.src} alt="YouTube logo" />
     </a>
   </li>
 </ul>
@@ -83,8 +77,8 @@ import socialMediaLinks from '@assets/data/social-media-links.json';
     width: 50rem;
   }
 
-  .white {
-    filter: invert(100%);
+  [data-theme="dark"] {
+    filter: invert();
   }
 
   .social-media-icons img {
