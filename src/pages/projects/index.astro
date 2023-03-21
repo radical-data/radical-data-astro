@@ -1,6 +1,5 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import { slugify } from "~/components/slugify";
 const response = await fetch(
   `https://api.airtable.com/v0/${import.meta.env.DB_ID}/Projects`,
   {
@@ -10,6 +9,7 @@ const response = await fetch(
   }
 );
 const data = await response.json();
+console.log(data.records[0].fields);
 ---
 
 <Layout title={"Projects"}>
@@ -20,7 +20,7 @@ const data = await response.json();
         {
           data.records.map((project: any) => (
             <li>
-              <a href={`/projects/${slugify(project.fields.Name)}`}>
+              <a href={`/projects/${project.fields.Slug}`}>
                 {project.fields.Name}
               </a>
             </li>
