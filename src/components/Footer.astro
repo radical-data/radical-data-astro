@@ -1,0 +1,23 @@
+---
+import MailingList from "./MailingList.astro";
+import SocialMediaLogos from "./SocialMediaLogos.astro";
+// let currentYear = new Date().getFullYear();
+---
+
+<footer class="region prose wrapper">
+  <h2>Let's stay in touch.</h2>
+  <section>
+    <p>Join our <em>mailing list</em> to see what we do next:</p>
+    <MailingList />
+  </section>
+  <section>
+    <p>
+      and follow us on <em>social media</em> to see what we're doing now:
+    </p>
+    <SocialMediaLogos />
+  </section>
+  <p>or <a href="https://airtable.com/shrBpNUSMSTQpOXQv">contact</a> us.</p>
+  <!-- <section>
+      <p id="copyright">© {currentYear} Radical Data. All rights reserved.</p>
+    </section> -->
+</footer>
