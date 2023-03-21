@@ -31,3 +31,17 @@ input[type="submit"] {
   background-color: none;
   font-weight: 800;
 }
+
+.tag {
+  display: inline-block;
+  box-sizing: border-box;
+  border: 2px solid var(--fg-color);
+  border-radius: 999px;
+  padding-block: 0.1em;
+  padding-inline: 0.5em;
+  margin-inline-end: 0.2em;
+}
+
+.tag::before {
+  content: "#";
+}
