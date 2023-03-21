@@ -3,7 +3,9 @@ import Layout from "../layouts/Layout.astro";
 import { SITE } from "../config";
 import { mostRecentPosts } from "~/lib/mostRecentPosts";
 const response = await fetch(
-  `https://api.airtable.com/v0/${import.meta.env.DB_ID}/Projects`,
+  `https://api.airtable.com/v0/${
+    import.meta.env.DB_ID
+  }/Projects?view=Grid%20view`,
   {
     headers: {
       Authorization: `Bearer ${import.meta.env.DB_TOKEN}`,
@@ -11,7 +13,7 @@ const response = await fetch(
   }
 );
 const data = await response.json();
-const sortedPosts = mostRecentPosts(data.records, -3);
+const sortedPosts = mostRecentPosts(data.records, "Created", -3);
 ---
 
 <Layout title={`${SITE.title} | ${SITE.description}`}>
@@ -80,17 +82,6 @@ const sortedPosts = mostRecentPosts(data.records, -3);
     <article class="region prose wrapper">
       <h2>The Radical Data Archive</h2>
       <h3>We research ways data is being used around the world.</h3>
-      <ul>
-        {
-          sortedPosts.map((project: any) => (
-            <li>
-              <a href={`/projects/${project.fields.Slug}`}>
-                {project.fields.Name}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
       <iframe
         title="The Radical Data Archive"
         class="airtable-embed"
@@ -105,6 +96,18 @@ const sortedPosts = mostRecentPosts(data.records, -3);
           href="https://airtable.com/shr2cGQbbfIogLrun">here</a
         >!
       </p>
+      <h3>The projects most recent projects in the archive are:</h3>
+      <ul>
+        {
+          sortedPosts.map((project: any) => (
+            <li>
+              <a href={`/projects/${project.fields.Slug}`}>
+                {project.fields.Name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
     </article>
   </main>
 </Layout>
