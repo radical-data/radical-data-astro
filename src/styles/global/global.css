@@ -5,6 +5,12 @@ body {
   --fg-color-subtle: var(--color-gray-light);
   --accent-color: var(--color-accent-light);
 
+  --gradient-stroke: linear-gradient(
+    180deg,
+    var(--color-gray-dark),
+    var(--color-gray-light)
+  );
+
   font-family: var(--font-base);
   font-size: var(--size-step-0);
   font-weight: var(--font-weight-base);

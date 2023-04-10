@@ -13,7 +13,7 @@
   /* Fonts */
 
   --font-base: system-ui, sans-serif;
-  --font-heading: 'Silk', serif;
+  --font-heading: "Silk", serif;
   --font-weight-heading-1: 100;
   --font-weight-heading-2: 200;
   --font-weight-base: 400;
@@ -37,6 +37,31 @@
   --tracking-l: -0.01ch;
   --line-height-base: 1.4;
   --line-height-tight: 1;
+
+  /* to delete */
+  --gray-0: #090b11;
+  --gray-50: #141925;
+  --gray-100: #283044;
+  --gray-200: #3d4663;
+  --gray-300: #505d84;
+  --gray-400: #6474a2;
+  --gray-500: #8490b5;
+  --gray-600: #a3acc8;
+  --gray-700: #c3cadb;
+  --gray-800: #e3e6ee;
+  --gray-900: #f3f4f7;
+  --gray-999-basis: 0, 0%, 100%;
+  --gray-999_40: hsla(var(--gray-999-basis), 0.4);
+  --gray-999: #ffffff;
+
+  --accent-light: #c561f6;
+  --accent-regular: #7611a6;
+  --accent-dark: #1c0056;
+  --accent-overlay: hsla(280, 89%, 67%, 0.33);
+  --accent-subtle-overlay: var(--accent-overlay);
+  --accent-text-over: var(--gray-999);
+
+  --link-color: var(--accent-regular);
 
   /**
     * Font sizes and space scales generated with Utopia (https://utopia.fyi/):
@@ -81,4 +106,12 @@
   /* Custom pairs */
 
   --space-l-2xl: clamp(2rem, calc(1.07rem + 4.66vw), 5rem);
+
+  /* Transitions */
+  --theme-transition: 0.2s ease-in-out;
+
+  /* Shadows */
+  --shadow: 0px 28px 11px rgba(255, 255, 255, 0.01),
+    0px 16px 10px rgba(255, 255, 255, 0.03),
+    0px 7px 7px rgba(255, 255, 255, 0.05), 0px 2px 4px rgba(255, 255, 255, 0.06);
 }
