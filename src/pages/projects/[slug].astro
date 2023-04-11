@@ -96,7 +96,9 @@ console.log(fields);
           relatedPosts.map(
             (post: { fields: { Name: string; Slug: string } }) => (
               <li>
-                <a href={post.fields.Slug}>{post.fields.Name}</a>
+                <a href={`${Astro.url}projects/${post.fields.Slug}`}>
+                  {post.fields.Name}
+                </a>
               </li>
             )
           )
