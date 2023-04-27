@@ -1,0 +1,33 @@
+---
+import MailingList from "~/components/MailingList.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Newsletter | Radical Data">
+  <main>
+    <article class="region prose wrapper">
+      <h1>Newsletter</h1>
+      <h2>Stay up to date with all things Radical Data.</h2>
+      <p>
+        We collect the best articles, events, workshops and tools online and
+        across the world.
+      </p><p>And send them to you in an email.</p><p>Once a month.</p>
+      <MailingList />
+    </article>
+  </main>
+</Layout>
+<style>
+  a {
+    padding-inline: 2.5rem;
+    padding-block: 1.5rem;
+    display: block;
+    margin-block: 1rem;
+    border-radius: 0.5rem;
+    text-decoration-line: none;
+    color: var(--fg-color);
+    background-color: var(--color-accent-light);
+  }
+  li {
+    list-style-type: none;
+  }
+</style>
