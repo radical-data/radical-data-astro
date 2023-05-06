@@ -5,6 +5,7 @@ import { getRelatedPosts } from "../../lib/getRelatedPosts";
 import { marked } from "marked";
 import sanitizeHtml from "sanitize-html";
 import Card from "~/components/Card.astro";
+import Tag from "~/components/Tag.astro";
 export async function getStaticPaths() {
   const response = await fetch(
     `https://api.airtable.com/v0/${
@@ -55,9 +56,7 @@ console.log(fields);
           <>
             <ul>
               {fields.Tags.map((tag: string) => (
-                <a href={`/tags/${tag}`}>
-                  <li class="tag">{tag}</li>
-                </a>
+                <Tag tag={tag} />
               ))}
             </ul>
           </>

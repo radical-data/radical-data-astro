@@ -40,10 +40,16 @@ input[type="submit"] {
   padding-block: 0.1em;
   padding-inline: 0.5em;
   margin-inline-end: 0.2em;
+  color: var(--fg-color);
 }
 
-.tag::before {
+.tag a::before {
   content: "#";
+  margin-inline-end: -0.25ch;
+}
+
+.tag a {
+  text-decoration: none;
 }
 
 p + p {
