@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import { SITE } from "../config";
 import { mostRecentPosts } from "~/lib/mostRecentPosts";
 import Card from "~/components/Card.astro";
-const response = await fetch(
+const responseAllProjects = await fetch(
   `https://api.airtable.com/v0/${
     import.meta.env.DB_ID
   }/Projects?view=Grid%20view`,
@@ -13,8 +13,23 @@ const response = await fetch(
     },
   }
 );
-const data = await response.json();
-const sortedPosts = mostRecentPosts(data.records, "Created", -3);
+const allProjects = await responseAllProjects.json();
+const mostRecentProjects = mostRecentPosts(allProjects.records, "Created", -3);
+
+const responseRadicalDataProjects = await fetch(
+  `https://api.airtable.com/v0/${
+    import.meta.env.DB_ID
+  }/Projects?view=grid-rd-only`,
+  {
+    headers: {
+      Authorization: `Bearer ${import.meta.env.DB_TOKEN}`,
+    },
+  }
+);
+const radicalDataProjects = await responseRadicalDataProjects.json();
+const randomRadicalDataProjects = radicalDataProjects.records
+  .sort(() => 0.5 - Math.random())
+  .slice(0, 3);
 ---
 
 <Layout title={`${SITE.title} | ${SITE.description}`}>
@@ -69,37 +84,10 @@ const sortedPosts = mostRecentPosts(data.records, "Created", -3);
     <article class="region prose wrapper">
       <h2>Our Projects</h2>
       <h3>We're making data analyses, digital tools and writing books.</h3>
-      <iframe
-        title="Radical Data's Projects"
-        class="airtable-embed"
-        loading="lazy"
-        src="https://airtable.com/embed/shrAb6rQcbGevZtlb?backgroundColor=red&viewControls=on"
-        width="100%"
-        height="533"
-        style="background: transparent; border: 1px solid #ccc;"></iframe>
-    </article>
-
-    <article class="region prose wrapper">
-      <h2>The Radical Data Archive</h2>
-      <h3>We research ways data is being used around the world.</h3>
-      <iframe
-        title="The Radical Data Archive"
-        class="airtable-embed"
-        loading="lazy"
-        src="https://airtable.com/embed/shrN1QEkjzow25vTf?backgroundColor=red&viewControls=on"
-        frameborder="0"
-        width="100%"
-        height="533"
-        style="background: transparent; border: 1px solid #ccc;"></iframe>
-      <p>
-        Are we misssing a great project? Submit it <a
-          href="https://airtable.com/shr2cGQbbfIogLrun">here</a
-        >!
-      </p>
-      <h3>The projects most recently added to the archive are:</h3>
+      <p>Here's a random selection:</p>
       <ul>
         {
-          sortedPosts.map((project: any) => (
+          randomRadicalDataProjects.map((project: any) => (
             <Card
               name={project.fields.Name}
               description={project.fields.Summary}
@@ -109,6 +97,35 @@ const sortedPosts = mostRecentPosts(data.records, "Created", -3);
           ))
         }
       </ul>
+      <p>
+        See all our projects <a href="projects/">here</a>!
+      </p>
+    </article>
+
+    <article class="region prose wrapper">
+      <h2>The Radical Data Archive</h2>
+      <h3>We research ways data is being used around the world.</h3>
+      <p>The projects most recently added to the archive are:</p>
+      <ul>
+        {
+          mostRecentProjects.map((project: any) => (
+            <Card
+              name={project.fields.Name}
+              description={project.fields.Summary}
+              image={project.fields["Featured Image"]}
+              link={`/projects/${project.fields.Slug}`}
+            />
+          ))
+        }
+      </ul>
+      <p>
+        Are we misssing a great project? Submit it <a
+          href="https://airtable.com/shr2cGQbbfIogLrun">here</a
+        >!
+      </p>
+      <p>
+        See all the projects in the archive <a href="archive/">here</a>!
+      </p>
     </article>
   </main>
 </Layout>
