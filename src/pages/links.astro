@@ -20,7 +20,10 @@ const data = await response.json();
       </h2>
       <ul>
         {
-          data.records.map((link: any) => (
+          [
+            ...data.records.filter((link: any) => link.fields.Pinned === true),
+            ...data.records.filter((link: any) => link.fields.Pinned !== true),
+          ].map((link: any) => (
             <Card
               name={link.fields.Name}
               description={link.fields.Description}
