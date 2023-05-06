@@ -58,7 +58,6 @@ p + p {
 
 ul div.card a {
   display: block;
-  padding: 3rem;
   margin-bottom: 10px;
   text-decoration: none;
   color: var(--fg-color);
@@ -66,6 +65,7 @@ ul div.card a {
 
 ul div.card a {
   border-block-end: 0.2rem solid var(--fg-color);
+  padding-block: 3rem;
 }
 
 div.card h2 {
