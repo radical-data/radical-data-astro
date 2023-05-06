@@ -5,7 +5,14 @@ const { name, description, link } = Astro.props;
 <div class="card">
   <a href={link}>
     <h2>{name}</h2>
-    <!-- <img src={image} /> -->
-    <h3>{description}</h3>
+    <h3>
+      {
+        description
+          ? description.endsWith(".")
+            ? description
+            : `${description}.`
+          : ""
+      }
+    </h3>
   </a>
 </div>
