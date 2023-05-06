@@ -1,4 +1,5 @@
 ---
+import Card from "~/components/Card.astro";
 import Layout from "../layouts/Layout.astro";
 const response = await fetch(
   `https://api.airtable.com/v0/${import.meta.env.DB_ID}/Links`,
@@ -20,9 +21,11 @@ const data = await response.json();
       <ul>
         {
           data.records.map((link: any) => (
-            <li>
-              <a href={link.fields.Link}>{link.fields.Description}</a>
-            </li>
+            <Card
+              name={link.fields.Name}
+              description={link.fields.Description}
+              link={link.fields.Link}
+            />
           ))
         }
       </ul>
