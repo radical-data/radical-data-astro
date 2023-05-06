@@ -55,7 +55,7 @@ h2,
 h3 {
   line-height: var(--line-height-tight);
   letter-spacing: var(--tracking-l);
-  max-width: 24ch;
+  /* max-width: 24ch; */
 }
 
 h1 {

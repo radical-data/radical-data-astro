@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import { SITE } from "../config";
 import { mostRecentPosts } from "~/lib/mostRecentPosts";
+import Card from "~/components/Card.astro";
 const response = await fetch(
   `https://api.airtable.com/v0/${
     import.meta.env.DB_ID
@@ -99,11 +100,12 @@ const sortedPosts = mostRecentPosts(data.records, "Created", -3);
       <ul>
         {
           sortedPosts.map((project: any) => (
-            <li>
-              <a href={`/projects/${project.fields.Slug}`}>
-                {project.fields.Name}
-              </a>
-            </li>
+            <Card
+              name={project.fields.Name}
+              description={project.fields.Summary}
+              image={project.fields["Featured Image"]}
+              link={`/projects/${project.fields.Slug}`}
+            />
           ))
         }
       </ul>

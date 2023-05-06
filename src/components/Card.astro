@@ -1,9 +1,11 @@
 ---
-const { name, description, image, link } = Astro.props;
+const { name, description, link } = Astro.props;
 ---
 
-<a href={link}>
-  <h2>{name}</h2>
-  <!-- <img src={image} /> -->
-  <h3>{description}</h3>
-</a>
+<div class="card">
+  <a href={link}>
+    <h2>{name}</h2>
+    <!-- <img src={image} /> -->
+    <h3>{description}</h3>
+  </a>
+</div>

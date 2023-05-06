@@ -49,3 +49,23 @@ input[type="submit"] {
 p + p {
   margin-block-start: 1em;
 }
+
+ul div.card a {
+  display: block;
+  padding: 3rem;
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: var(--fg-color);
+}
+
+ul div.card a {
+  border-block-end: 0.2rem solid var(--fg-color);
+}
+
+div.card h2 {
+  padding-block-end: 1rem;
+}
+
+div.card h3 {
+  font-size: 1.8rem;
+}
