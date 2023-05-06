@@ -4,6 +4,7 @@ import { Picture } from "@astrojs/image/components";
 import { getRelatedPosts } from "../../lib/getRelatedPosts";
 import { marked } from "marked";
 import sanitizeHtml from "sanitize-html";
+import Card from "~/components/Card.astro";
 export async function getStaticPaths() {
   const response = await fetch(
     `https://api.airtable.com/v0/${
@@ -93,17 +94,17 @@ console.log(fields);
       <h2>Similar projects to {fields.Name}</h2>
       <ul>
         {
-          relatedPosts.map(
-            (post: { fields: { Name: string; Slug: string } }) => (
-              <li>
-                <a href={`${Astro.url}projects/${post.fields.Slug}`}>
-                  {post.fields.Name}
-                </a>
-              </li>
-            )
-          )
+          relatedPosts.map((project: any) => (
+            <Card
+              name={project.fields.Name}
+              description={project.fields.Summary}
+              image={project.fields["Featured Image"]}
+              link={`./projects/${project.fields.Slug}`}
+            />
+          ))
         }
       </ul>
+      <p>Back to <a href="./">all projects</a>.</p>
     </article>
   </main>
 </Layout>
