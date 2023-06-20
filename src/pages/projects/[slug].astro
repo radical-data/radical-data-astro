@@ -98,12 +98,14 @@ console.log(fields);
               name={project.fields.Name}
               description={project.fields.Summary}
               image={project.fields["Featured Image"]}
-              link={`./projects/${project.fields.Slug}`}
+              link={`/projects/${project.fields.Slug}`}
             />
           ))
         }
       </ul>
-      <p>Back to <a href="./">all projects</a>.</p>
+      <p>
+        Back to <a href={`/projects`}>all projects</a>.
+      </p>
     </article>
   </main>
 </Layout>
