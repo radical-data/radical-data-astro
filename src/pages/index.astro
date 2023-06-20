@@ -88,12 +88,14 @@ const randomRadicalDataProjects = radicalDataProjects.records
       <ul>
         {
           randomRadicalDataProjects.map((project: any) => (
-            <Card
-              name={project.fields.Name}
-              description={project.fields.Summary}
-              image={project.fields["Featured Image"]}
-              link={`/projects/${project.fields.Slug}`}
-            />
+            <li>
+              <Card
+                name={project.fields.Name}
+                description={project.fields.Summary}
+                image={project.fields["Featured Image"]}
+                link={`/projects/${project.fields.Slug}`}
+              />
+            </li>
           ))
         }
       </ul>
@@ -102,13 +104,14 @@ const randomRadicalDataProjects = radicalDataProjects.records
       </p>
     </article>
 
-    <article class="region prose wrapper">
-      <h2>The Radical Data Archive</h2>
-      <h3>We research ways data is being used around the world.</h3>
-      <p>The projects most recently added to the archive are:</p>
-      <ul>
-        {
-          mostRecentProjects.map((project: any) => (
+  <article class="region prose wrapper">
+    <h2>The Radical Data Archive</h2>
+    <h3>We research ways data is being used around the world.</h3>
+    <p>The projects most recently added to the archive are:</p>
+    <ul>
+      {
+        mostRecentProjects.map((project: any) => (
+          <li>
             <Card
               name={project.fields.Name}
               description={project.fields.Summary}
@@ -128,4 +131,5 @@ const randomRadicalDataProjects = radicalDataProjects.records
       </p>
     </article>
   </main>
+          </li>
 </Layout>
