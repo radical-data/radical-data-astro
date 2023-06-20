@@ -100,9 +100,10 @@ const randomRadicalDataProjects = radicalDataProjects.records
         }
       </ul>
       <p>
-        See all our projects <a href="projects/">here</a>!
+        See all <a href="projects/">our projects</a>!
       </p>
     </article>
+  </main>
 
   <article class="region prose wrapper">
     <h2>The Radical Data Archive</h2>
@@ -118,18 +119,22 @@ const randomRadicalDataProjects = radicalDataProjects.records
               image={project.fields["Featured Image"]}
               link={`/projects/${project.fields.Slug}`}
             />
-          ))
-        }
-      </ul>
-      <p>
-        Are we misssing a great project? Submit it <a
-          href="https://airtable.com/shr2cGQbbfIogLrun">here</a
-        >!
-      </p>
-      <p>
-        See all the projects in the archive <a href="archive/">here</a>!
-      </p>
-    </article>
-  </main>
           </li>
+        ))
+      }
+    </ul>
+    <p>
+      Are we misssing a great project? Suggest it through the <a
+        href="https://airtable.com/shr2cGQbbfIogLrun">project suggestion form</a
+      >!
+    </p>
+    <p>
+      See all the projects in <a href="archive/">the archive</a>!
+    </p>
+  </article>
 </Layout>
+<style>
+  li {
+    list-style: none;
+  }
+</style>
