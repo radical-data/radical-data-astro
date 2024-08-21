@@ -3,18 +3,18 @@ import Layout from "../layouts/Layout.astro";
 import { SITE } from "../config";
 import { mostRecentPosts } from "~/lib/mostRecentPosts";
 import Card from "~/components/Card.astro";
-const responseAllProjects = await fetch(
+const responseNotRDProjects = await fetch(
   `https://api.airtable.com/v0/${
     import.meta.env.DB_ID
-  }/Projects?view=Grid%20view`,
+  }/Projects?view=grid-not-rd`,
   {
     headers: {
       Authorization: `Bearer ${import.meta.env.DB_TOKEN}`,
     },
   }
 );
-const allProjects = await responseAllProjects.json();
-const mostRecentProjects = mostRecentPosts(allProjects.records, "Created", -3);
+const notRDProjects = await responseNotRDProjects.json();
+const mostRecentProjects = mostRecentPosts(notRDProjects.records, "Created", -3);
 
 const responseRadicalDataProjects = await fetch(
   `https://api.airtable.com/v0/${
