@@ -1,6 +1,5 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import { Picture } from "@astrojs/image/components";
 import { getRelatedPosts } from "../../lib/getRelatedPosts";
 import { marked } from "marked";
 import sanitizeHtml from "sanitize-html";
@@ -43,11 +42,11 @@ console.log(fields);
       {fields["Summary"] && <h2>{fields.Summary}</h2>}
       {
         fields["Featured Image"] && (
-          <Picture
+          <img
             src={fields["Featured Image"][0].url}
-            widths={[400, 800, 1200]}
-            aspectRatio={1}
             alt=""
+            loading="lazy"
+            style="max-width: 100%; height: auto;"
           />
         )
       }
