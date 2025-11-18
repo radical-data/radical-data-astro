@@ -12,14 +12,21 @@ const { title } = Astro.props;
 ---
 
 <!DOCTYPE html>
-<!-- Remove the hard-coded dark mode and implement your own if you're into that sort of thing -->
-<html lang="en" data-theme="dark">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#9EA3FA" />
+
+    <script is:inline>
+      // Set theme before page renders to prevent flash
+      (function() {
+        const currentTheme = localStorage.getItem("theme") || "light";
+        document.documentElement.setAttribute("data-theme", currentTheme);
+      })();
+    </script>
 
     <SEO />
 
