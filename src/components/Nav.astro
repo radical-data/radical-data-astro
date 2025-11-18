@@ -1,7 +1,8 @@
 ---
 import { SITE } from "../config";
 import DarkModeToggle from "./DarkModeToggle.astro";
-import Icon, { Props as IconProps } from "./Icon.astro";
+import Icon, { type Props as IconProps } from "./Icon.astro";
+import { SOCIAL, SOCIAL_FOR_NAV } from "~/config/social";
 // import ThemeToggle from "./ThemeToggle.astro";
 
 /** Main menu items */
@@ -11,44 +12,14 @@ const textLinks: { label: string; href: string }[] = [
   { label: "The Archive", href: "/archive/" },
 ];
 
-/** Icon links to social media — edit these with links to your profiles! */
-const iconLinks: { label: string; href: string; icon: IconProps["icon"] }[] = [
-  {
-    label: "instagram",
-    href: "https://instagram.com/radicaldataproject",
-    icon: "instagram-logo",
-  },
-  {
-    label: "Twitter",
-    href: "https://twitter.com/radical_data",
-    icon: "twitter-logo",
-  },
-  {
-    label: "YouTube",
-    href: "https://www.youtube.com/@radicaldata",
-    icon: "youtube-logo",
-  },
-  {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/company/radicaldata",
-    icon: "linkedin-logo",
-  },
-  {
-    label: "TikTok",
-    href: "https://www.tiktok.com/@radical_data",
-    icon: "tiktok-logo",
-  },
-  //   {
-  //     label: "Facebook",
-  //     href: "https://www.facebook.com/radicaldata",
-  //     icon: "fb-logo",
-  //   },
-  {
-    label: "GitHub",
-    href: "https://github.com/radicaldataproject",
-    icon: "github-logo",
-  },
-];
+// Helper to get platform name for screen reader text
+function getPlatformLabel(entry: typeof SOCIAL_FOR_NAV[number]): string {
+  const platformKey = Object.entries(SOCIAL).find(
+    ([_, social]) => social === entry
+  )?.[0];
+  if (!platformKey) return "Social media";
+  return platformKey.charAt(0).toUpperCase() + platformKey.slice(1);
+}
 ---
 
 <nav>
@@ -92,10 +63,10 @@ const iconLinks: { label: string; href: string; icon: IconProps["icon"] }[] = [
     <div class="menu-footer">
       <div class="socials">
         {
-          iconLinks.map(({ href, icon, label }) => (
-            <a href={href} class="social">
-              <span class="sr-only">{label}</span>
-              <Icon icon={icon} />
+          SOCIAL_FOR_NAV.map((entry) => (
+            <a href={entry.url} class="social">
+              <span class="sr-only">{getPlatformLabel(entry)}</span>
+              <Icon icon={entry.icon as IconProps["icon"]} />
             </a>
           ))
         }

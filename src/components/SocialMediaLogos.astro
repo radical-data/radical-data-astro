@@ -6,40 +6,39 @@ import linkedinLogo from "@assets/media/linkedin.svg";
 import tiktokLogo from "@assets/media/tiktok.svg";
 import githubLogo from "@assets/media/github.svg";
 
-import socialMediaLinks from "@assets/data/social-media-links.json";
+import { SOCIAL, SOCIAL_FOR_FOOTER } from "~/config/social";
+
+// Optional: a small mapping function from platform to asset.
+// This keeps all asset imports here, but still uses the config as data source.
+const logoMap: Record<string, { src: string; alt: string }> = {
+  instagram: { src: instagramLogo.src, alt: "Instagram logo" },
+  twitter: { src: twitterLogo.src, alt: "Twitter logo" },
+  youtube: { src: youtubeLogo.src, alt: "YouTube logo" },
+  linkedin: { src: linkedinLogo.src, alt: "LinkedIn logo" },
+  tiktok: { src: tiktokLogo.src, alt: "TikTok logo" },
+  github: { src: githubLogo.src, alt: "GitHub logo" },
+};
 ---
 
 <ul class="social-media-icons">
-  <li>
-    <a href={socialMediaLinks.instagram}
-      ><img src={instagramLogo.src} alt="Instagram logo" />
-    </a>
-  </li>
-  <li>
-    <a href={socialMediaLinks.linkedin}
-      ><img src={linkedinLogo.src} alt="LinkedIn logo" />
-    </a>
-  </li>
-  <li>
-    <a href={socialMediaLinks.tiktok}
-      ><img src={tiktokLogo.src} alt="TikTok logo" />
-    </a>
-  </li>
-  <li>
-    <a href={socialMediaLinks.github}
-      ><img src={githubLogo.src} alt="GitHub logo" />
-    </a>
-  </li>
-  <li>
-    <a href={socialMediaLinks.twitter}
-      ><img src={twitterLogo.src} alt="Twitter logo" />
-    </a>
-  </li>
-  <li>
-    <a href={socialMediaLinks.youtube}
-      ><img src={youtubeLogo.src} alt="YouTube logo" />
-    </a>
-  </li>
+  {
+    SOCIAL_FOR_FOOTER.map((entry) => {
+      // Find the platform key by matching the entry
+      const platformKey = Object.entries(SOCIAL).find(
+        ([_, social]) => social === entry
+      )?.[0];
+      if (!platformKey) return null;
+      const logo = logoMap[platformKey];
+      if (!logo) return null;
+      return (
+        <li>
+          <a href={entry.url}>
+            <img src={logo.src} alt={logo.alt} />
+          </a>
+        </li>
+      );
+    })
+  }
 </ul>
 <style>
   ul {

@@ -1,6 +1,8 @@
 // Place any global data in this file.
 // You can import this data from anywhere in your site by using the `import` keyword.
 
+import { SOCIAL } from "./config/social";
+
 export const SITE = {
   // Your site's detail?
   name: "Radical Data",
@@ -18,7 +20,7 @@ export const SITE = {
   // Author: name
   author: "", // Example: Fred K. Schott
   // Author: Twitter handler
-  authorTwitter: "radical_data", // Example: FredKSchott
+  authorTwitter: SOCIAL.twitter.handle ?? "radical_data", // Example: FredKSchott
   // Author: Image external source
   authorImage: "", // Example: https://pbs.twimg.com/profile_images/1272979356529221632/sxvncugt_400x400.jpg
 };
