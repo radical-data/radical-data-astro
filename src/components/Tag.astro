@@ -2,8 +2,40 @@
 const { tag } = Astro.props;
 ---
 
-<div class="tag">
-  <a href={``}>
+<div class="tag-pill">
+  <a href={``} class="tag-pill__link">
     {tag}
   </a>
 </div>
+
+<style>
+  .tag-pill {
+    display: inline-flex;
+  }
+
+  .tag-pill__link {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.4rem 0.7rem;
+    border: 2px solid #111;
+    background: #fff;
+    color: #111;
+    text-decoration: none;
+    font-size: 0.72rem;
+    font-weight: 900;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    box-shadow: 0.16rem 0.16rem 0 #111;
+  }
+
+  .tag-pill__link::before {
+    content: "#";
+    margin-right: 0.15rem;
+  }
+
+  .tag-pill__link:hover,
+  .tag-pill__link:focus {
+    transform: translate(-0.08rem, -0.08rem);
+  }
+</style>

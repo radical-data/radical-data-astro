@@ -3,19 +3,33 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Contact | Radical Data">
-  <main>
-    <article class="region prose wrapper">
-      <h1>Contact</h1>
-      <h2>Get in touch with us</h2>
+  <main class="page-shell">
+    <section class="wrapper page-shell__hero">
+      <p class="page-shell__kicker">Contact</p>
+      <h1>Get in touch with us.</h1>
+      <p class="page-shell__intro">
+        Questions, collaborations, invitations, commissions or workshop ideas:
+        send us a message.
+      </p>
+    </section>
+
+    <section class="wrapper page-shell__section">
+      <div class="page-shell__section-heading">
+        <p class="page-shell__kicker">Form</p>
+        <h2>Send a message.</h2>
+      </div>
+
       <script src="https://static.airtable.com/js/embed/embed_snippet_v1.js"
-      ></script><iframe
+      ></script>
+      <iframe
         class="airtable-embed airtable-dynamic-height"
         src="https://airtable.com/embed/shrBpNUSMSTQpOXQv?backgroundColor=red"
         frameborder="0"
         onmousewheel=""
         width="100%"
         height="533"
-        style="background: transparent; border: 1px solid #ccc;"></iframe>
-    </article>
+        style="background: transparent;"
+      ></iframe>
+    </section>
   </main>
 </Layout>

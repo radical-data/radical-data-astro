@@ -3,11 +3,22 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Page not found">
-  <main>
-    <article class="region prose wrapper">
-      <h1>Page not found</h1><h2>
-        Go <a href={import.meta.env.BASE_URL}>home</a>.
-      </h2>
-    </article>
+  <main class="page-shell">
+    <section class="wrapper page-shell__hero">
+      <p class="page-shell__kicker">404</p>
+      <h1>Page not found.</h1>
+      <p class="page-shell__intro">
+        The page you tried to reach does not exist or has moved somewhere else.
+      </p>
+    </section>
+
+    <section class="wrapper page-shell__section">
+      <div class="page-panel flow">
+        <p>
+          Go back to the homepage to continue exploring Radical Data.
+        </p>
+        <p><a href={import.meta.env.BASE_URL} class="button-link">Back home</a></p>
+      </div>
+    </section>
   </main>
 </Layout>

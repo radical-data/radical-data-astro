@@ -14,10 +14,24 @@ console.log(data.records[0].fields);
 ---
 
 <Layout title={"Archive"}>
-  <main>
-    <article class="region prose wrapper">
-      <h1>Archive</h1>
-      <ul>
+  <main class="page-shell">
+    <section class="wrapper page-shell__hero">
+      <p class="page-shell__kicker">Archive</p>
+      <h1>The Radical Data Archive.</h1>
+      <p class="page-shell__intro">
+        References, experiments and projects from beyond Radical Data: queer
+        data, tech feminista, activist maps, community infrastructures and
+        digital resistance.
+      </p>
+    </section>
+
+    <section class="wrapper page-shell__section">
+      <div class="page-shell__section-heading">
+        <p class="page-shell__kicker">Explore</p>
+        <h2>Archive entries.</h2>
+      </div>
+
+      <ul role="list" class="page-grid">
         {
           data.records.map((project: any) => (
             <Card
@@ -30,6 +44,6 @@ console.log(data.records[0].fields);
           ))
         }
       </ul>
-    </article>
+    </section>
   </main>
 </Layout>

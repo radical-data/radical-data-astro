@@ -40,6 +40,7 @@
         type="submit"
         value="Subscribe"
         name="subscribe"
+        aria-label="Subscribe to the Radical Data newsletter"
         id="mc-embedded-subscribe"
         class="button"
       />
@@ -49,13 +50,41 @@
 
 <style>
   label {
-    display: none;
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.45rem;
   }
+
   input {
     font-family: inherit;
     font-size: inherit;
   }
-  input[type="submit"] {
-    background-color: none;
+
+  #mc_embed_signup_scroll {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .mc-field-group input,
+  #mc-embedded-subscribe {
+    width: 100%;
+    border: 2px solid #111;
+    background: #fff;
+    color: #111;
+    padding: 0.9rem 1rem;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  #mc-embedded-subscribe {
+    background: #ff5b4d;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0.35rem 0.35rem 0 #111;
+    text-transform: uppercase;
+    font-weight: 900;
   }
 </style>

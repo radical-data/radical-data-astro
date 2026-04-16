@@ -13,12 +13,22 @@ const data = await response.json();
 ---
 
 <Layout title="Links | Radical Data">
-  <main>
-    <article class="region prose wrapper">
-      <h1>Links</h1><h2>
-        Here are the most recent links we have shared on social networks.
-      </h2>
-      <ul>
+  <main class="page-shell">
+    <section class="wrapper page-shell__hero">
+      <p class="page-shell__kicker">Links</p>
+      <h1>Recent links and references.</h1>
+      <p class="page-shell__intro">
+        A running collection of the things we have been sharing publicly.
+      </p>
+    </section>
+
+    <section class="wrapper page-shell__section">
+      <div class="page-shell__section-heading">
+        <p class="page-shell__kicker">Feed</p>
+        <h2>Latest shared links.</h2>
+      </div>
+
+      <ul role="list" class="page-grid">
         {
           [
             ...data.records.filter((link: any) => link.fields.Pinned === true),
@@ -32,21 +42,6 @@ const data = await response.json();
           ))
         }
       </ul>
-    </article>
+    </section>
   </main>
 </Layout>
-<style>
-  a {
-    padding-inline: 2.5rem;
-    padding-block: 1.5rem;
-    display: block;
-    margin-block: 1rem;
-    border-radius: 0.5rem;
-    text-decoration-line: none;
-    color: var(--fg-color);
-    background-color: var(--color-accent-light);
-  }
-  li {
-    list-style-type: none;
-  }
-</style>

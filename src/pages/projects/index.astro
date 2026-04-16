@@ -16,10 +16,23 @@ console.log(data.records[0].fields);
 ---
 
 <Layout title={"Projects"}>
-  <main>
-    <article class="region prose wrapper">
-      <h1>Projects</h1>
-      <ul>
+  <main class="page-shell">
+    <section class="wrapper page-shell__hero">
+      <p class="page-shell__kicker">Projects</p>
+      <h1>Radical Data projects.</h1>
+      <p class="page-shell__intro">
+        Tools, workshops, research, experiments and infrastructures shaped for
+        liberation, joy and collective power.
+      </p>
+    </section>
+
+    <section class="wrapper page-shell__section">
+      <div class="page-shell__section-heading">
+        <p class="page-shell__kicker">Browse</p>
+        <h2>All projects.</h2>
+      </div>
+
+      <ul role="list" class="page-grid">
         {
           data.records.map((project: any) => (
             <Card
@@ -29,14 +42,9 @@ console.log(data.records[0].fields);
               theme={project.fields.Theme}
               link={`/projects/${project.fields.Slug}`}
             />
-            // <li>
-            //   <a href={`/projects/${project.fields.Slug}`}>
-            //     {project.fields.Name}
-            //   </a>
-            // </li>
           ))
         }
       </ul>
-    </article>
+    </section>
   </main>
 </Layout>

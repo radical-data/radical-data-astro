@@ -82,12 +82,17 @@ console.log(fields);
 ---
 
 <Layout title={fields.Name}>
-  <main>
-    <article class="region prose wrapper">
+  <main class="page-shell">
+    <section class="wrapper page-shell__hero">
+      <p class="page-shell__kicker">Project</p>
       <h1>{fields.Name}</h1>
+      {fields["Summary"] && <p class="page-shell__intro">{fields.Summary}</p>}
+    </section>
+
+    <section class="wrapper page-shell__section">
       {
         themeName && themeMeta && (
-          <aside class={`project-theme project-theme--${themeMeta.slug}`}>
+          <aside class={`project-theme page-panel theme-surface--${themeMeta.slug}`}>
             <p class="project-theme__eyebrow">Theme</p>
             <h2>{themeName}</h2>
             <p>{themeMeta.description}</p>
@@ -100,34 +105,36 @@ console.log(fields);
         )
       }
 
-      {fields["Summary"] && <h2>{fields.Summary}</h2>}
       {
         fields["Featured Image"] && (
-          <img
-            src={fields["Featured Image"][0].url}
-            alt=""
-            loading="lazy"
-            style="max-width: 100%; height: auto;"
-          />
+          <figure class="project-image">
+            <img
+              src={fields["Featured Image"][0].url}
+              alt=""
+              loading="lazy"
+            />
+          </figure>
         )
       }
+
       {
         fields["Tags"] && (
-          <>
-            <ul>
-              {fields.Tags.map((tag: string) => (
+          <ul role="list" class="project-tags">
+            {fields.Tags.map((tag: string) => (
+              <li>
                 <Tag tag={tag} />
-              ))}
-            </ul>
-          </>
+              </li>
+            ))}
+          </ul>
         )
       }
+
       {
         hasStructuredSections ? (
-          <div class="content flow">
+          <div class="rich-content flow">
             {
               whatItIs && (
-                <section class="project-section flow">
+                <section class="project-section page-panel flow">
                   <h2>What It Is</h2>
                   <div set:html={renderRichText(whatItIs)} />
                 </section>
@@ -136,7 +143,7 @@ console.log(fields);
 
             {
               howItWorks && (
-                <section class="project-section flow">
+                <section class="project-section page-panel flow">
                   <h2>How It Works</h2>
                   <div set:html={renderRichText(howItWorks)} />
                 </section>
@@ -145,7 +152,7 @@ console.log(fields);
 
             {
               whyItMatters && (
-                <section class="project-section flow">
+                <section class="project-section page-panel flow">
                   <h2>Why It Matters</h2>
                   <div set:html={renderRichText(whyItMatters)} />
                 </section>
@@ -154,65 +161,61 @@ console.log(fields);
           </div>
         ) : (
           fields["Content"] && (
-            <div class="content" set:html={renderRichText(fields["Content"])} />
+            <div
+              class="rich-content page-panel"
+              set:html={renderRichText(fields["Content"])}
+            />
           )
         )
       }
+
       {
         fields["Attribution"] && (
-          <p>
+          <p class="project-attribution">
             <i>{fields.Attribution}</i>
           </p>
         )
       }
-      <h2>Similar projects to {fields.Name}</h2>
-      <ul>
-        {
-          relatedPosts.map((project: any) => (
-            <Card
-              name={project.fields.Name}
-              description={project.fields.Summary}
-              image={project.fields["Featured Image"]}
-              theme={project.fields.Theme}
-              link={`/projects/${project.fields.Slug}`}
-            />
-          ))
-        }
-      </ul>
-      <p>
-        Back to <a href={`/projects`}>all projects</a>.
-      </p>
-    </article>
+    </section>
+
+    {
+      relatedPosts.length > 0 && (
+        <section class="wrapper page-shell__section">
+          <div class="page-shell__section-heading">
+            <p class="page-shell__kicker">Related</p>
+            <h2>Similar projects to {fields.Name}.</h2>
+          </div>
+
+          <ul role="list" class="page-grid">
+            {
+              relatedPosts.map((project: any) => (
+                <Card
+                  name={project.fields.Name}
+                  description={project.fields.Summary}
+                  image={project.fields["Featured Image"]}
+                  theme={project.fields.Theme}
+                  link={`/projects/${project.fields.Slug}`}
+                />
+              ))
+            }
+          </ul>
+
+          <p class="project-backlink">
+            <a href="/projects/" class="button-link">Back to all projects</a>
+          </p>
+        </section>
+      )
+    }
   </main>
 </Layout>
 
 <style>
   .project-theme {
     margin-bottom: 1.5rem;
-    border: 2px solid #111;
-    padding: 1rem;
-    box-shadow: 0.35rem 0.35rem 0 #111;
-    color: #111;
-  }
-
-  .project-theme--collective-intelligence {
-    background: #ffe500;
-  }
-
-  .project-theme--tools-for-postcapitalism {
-    background: #ff5b4d;
-    color: white;
-  }
-
-  .project-theme--tecnologia-popular {
-    background: #204cff;
-    color: white;
   }
 
   .project-theme :global(h2) {
     margin: 0.15rem 0 0.5rem;
-    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-      "Segoe UI", sans-serif;
     font-size: clamp(1.8rem, 4vw, 2.8rem);
     font-weight: 900;
     line-height: 0.95;
@@ -243,5 +246,45 @@ console.log(fields);
     text-transform: uppercase;
     text-decoration-thickness: 0.08em;
     text-underline-offset: 0.15em;
+  }
+
+  .project-image {
+    margin-bottom: 1.5rem;
+  }
+
+  .project-image img {
+    width: 100%;
+    height: auto;
+    border: 2px solid #111;
+    box-shadow: 0.35rem 0.35rem 0 #111;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+    list-style: none;
+  }
+
+  .project-section + .project-section {
+    margin-top: 1rem;
+  }
+
+  .project-section h2 {
+    font-size: clamp(1.7rem, 4vw, 2.8rem);
+    line-height: 0.94;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .project-attribution {
+    margin-top: 1.25rem;
+    font-size: 0.95rem;
+  }
+
+  .project-backlink {
+    margin-top: 1.5rem;
   }
 </style>
