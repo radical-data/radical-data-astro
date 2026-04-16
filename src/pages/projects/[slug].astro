@@ -5,6 +5,7 @@ import { marked } from "marked";
 import sanitizeHtml from "sanitize-html";
 import Card from "~/components/Card.astro";
 import Tag from "~/components/Tag.astro";
+
 export async function getStaticPaths() {
   const response = await fetch(
     `https://api.airtable.com/v0/${
@@ -29,10 +30,23 @@ export async function getStaticPaths() {
 }
 
 const { slug } = Astro.params;
-slug; // just to get rid of 'value never read'
+slug;
+
 const { fields, relatedPosts } = Astro.props;
+
+const whatItIs = fields["What It Is"];
+const howItWorks = fields["How It Works"];
+const whyItMatters = fields["Why It Matters"];
+
+const hasStructuredSections = Boolean(
+  whatItIs || howItWorks || whyItMatters
+);
+
+function renderRichText(content: string) {
+  return sanitizeHtml(marked.parse(content));
+}
+
 console.log(fields);
-// console.log(relatedPosts);
 ---
 
 <Layout title={fields.Name}>
@@ -61,25 +75,40 @@ console.log(fields);
           </>
         )
       }
-      <!-- {
-        fields.Tools && (
-          <>
-            <ul>
-              {fields.Tools.map((tool: string) => (
-                <a href={`/tools/${tool}`}>
-                  <li class="tag">{tool}</li>
-                </a>
-              ))}
-            </ul>
-          </>
-        )
-      } -->
       {
-        fields["Content"] && (
-          <div
-            class="content"
-            set:html={sanitizeHtml(marked.parse(fields.Content))}
-          />
+        hasStructuredSections ? (
+          <div class="content flow">
+            {
+              whatItIs && (
+                <section class="project-section flow">
+                  <h2>What It Is</h2>
+                  <div set:html={renderRichText(whatItIs)} />
+                </section>
+              )
+            }
+
+            {
+              howItWorks && (
+                <section class="project-section flow">
+                  <h2>How It Works</h2>
+                  <div set:html={renderRichText(howItWorks)} />
+                </section>
+              )
+            }
+
+            {
+              whyItMatters && (
+                <section class="project-section flow">
+                  <h2>Why It Matters</h2>
+                  <div set:html={renderRichText(whyItMatters)} />
+                </section>
+              )
+            }
+          </div>
+        ) : (
+          fields["Content"] && (
+            <div class="content" set:html={renderRichText(fields["Content"])} />
+          )
         )
       }
       {
