@@ -12,8 +12,9 @@ function getPlatformLabel(entry: (typeof SOCIAL_FOR_FOOTER)[number]): string {
 }
 ---
 
-<footer class="footer wrapper">
-  <div class="footer__grid">
+<footer class="footer">
+  <div class="wrapper">
+    <div class="footer__grid">
     <section class="footer__panel flow">
       <img
         src="/radical-data-logo.svg"
@@ -52,6 +53,7 @@ function getPlatformLabel(entry: (typeof SOCIAL_FOR_FOOTER)[number]): string {
         Or <a href="/contact/">get in touch</a>.
       </p>
     </section>
+    </div>
   </div>
 </footer>
 
@@ -62,6 +64,7 @@ function getPlatformLabel(entry: (typeof SOCIAL_FOR_FOOTER)[number]): string {
     border-top: 2px solid #111;
     margin-top: clamp(3rem, 7vw, 5rem);
     background: #f3f0e8;
+    width: 100%;
   }
 
   .footer__grid {

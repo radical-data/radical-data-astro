@@ -172,10 +172,6 @@ pre {
   border-radius: var(--border-radius-sm);
 }
 
-footer {
-  margin-block-start: var(--space-xl-2xl);
-}
-
 .gradient-text {
   -webkit-background-clip: text;
   background-clip: text;

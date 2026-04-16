@@ -1,7 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { SITE } from "../config";
-import MailingList from "~/components/MailingList.astro";
 
 const headers = {
   Authorization: `Bearer ${import.meta.env.DB_TOKEN}`,
@@ -261,32 +260,6 @@ const archiveLead =
       <p class="archive-teaser__cta">
         <a href="/archive/" class="button-link">Explore the full archive →</a>
       </p>
-    </section>
-
-    <section class="wrapper home-section home-section--closing">
-      <div class="home-contact-grid">
-        <article class="home-cta flow">
-          <p class="home-kicker">Newsletter</p>
-          <h2>Stay close to what we are building.</h2>
-          <p>
-            We send projects, tools, workshops, writing and references from across
-            Radical Data.
-          </p>
-          <MailingList />
-        </article>
-
-        <article class="home-cta flow">
-          <p class="home-kicker">Contact</p>
-          <h2>Work with us, invite us, or send us a project.</h2>
-          <p>
-            Want to collaborate, host a workshop, invite a talk, or suggest something
-            for the archive?
-          </p>
-          <p>
-            <a href="/contact/" class="button-link">Get in touch →</a>
-          </p>
-        </article>
-      </div>
     </section>
   </main>
 </Layout>
@@ -670,56 +643,8 @@ const archiveLead =
     transform: translate(-0.12rem, -0.12rem);
   }
 
-  .home-contact-grid {
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
-  }
-
-  .home-cta {
-    border: 2px solid var(--home-border);
-    padding: 1rem;
-    background: white;
-    box-shadow: var(--home-shadow);
-  }
-
-  .home-cta h2 {
-    font-size: clamp(1.7rem, 4vw, 2.8rem);
-    line-height: 0.94;
-    font-weight: 900;
-    letter-spacing: -0.04em;
-    text-transform: uppercase;
-    max-width: 12ch;
-  }
-
   .flow > * + * {
     margin-top: 0.95rem;
-  }
-
-  .home :global(#mc_embed_signup_scroll) {
-    display: grid;
-    gap: 0.8rem;
-  }
-
-  .home :global(.mc-field-group input),
-  .home :global(#mc-embedded-subscribe) {
-    width: 100%;
-    border: 2px solid var(--home-border);
-    background: white;
-    color: var(--home-ink);
-    padding: 0.9rem 1rem;
-    font-family: var(--home-font);
-    font-size: 1rem;
-    font-weight: 700;
-  }
-
-  .home :global(#mc-embedded-subscribe) {
-    background: var(--theme-tools-for-postcapitalism);
-    color: white;
-    cursor: pointer;
-    box-shadow: var(--home-shadow);
-    text-transform: uppercase;
-    font-weight: 900;
   }
 
   @media (min-width: 48rem) {
