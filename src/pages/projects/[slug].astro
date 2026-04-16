@@ -7,26 +7,54 @@ import Card from "~/components/Card.astro";
 import Tag from "~/components/Tag.astro";
 
 export async function getStaticPaths() {
-  const response = await fetch(
-    `https://api.airtable.com/v0/${
-      import.meta.env.DB_ID
-    }/Projects?view=Grid%20view`,
-    {
-      headers: {
-        Authorization: `Bearer ${import.meta.env.DB_TOKEN}`,
-      },
-    }
-  );
-  const data = await response.json();
-  return data.records.map((project: any) => {
-    return {
-      params: { slug: project.fields.Slug },
-      props: {
-        fields: project.fields,
-        relatedPosts: getRelatedPosts(data.records, project, 6),
-      },
-    };
-  });
+  async function fetchAllProjects(view: string) {
+    const records = [];
+    let offset: string | undefined;
+
+    do {
+      const url = new URL(
+        `https://api.airtable.com/v0/${import.meta.env.DB_ID}/Projects`
+      );
+      url.searchParams.set("view", view);
+
+      if (offset) {
+        url.searchParams.set("offset", offset);
+      }
+
+      const response = await fetch(url.toString(), {
+        headers: {
+          Authorization: `Bearer ${import.meta.env.DB_TOKEN}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch Airtable view: ${view}`);
+      }
+
+      const data = await response.json();
+      records.push(...(data.records ?? []));
+      offset = data.offset;
+    } while (offset);
+
+    return records;
+  }
+
+  const records = await fetchAllProjects("Grid view");
+
+  return records
+    .filter((project: any) => {
+      const slug = project?.fields?.Slug;
+      return typeof slug === "string" && slug.trim().length > 0;
+    })
+    .map((project: any) => {
+      return {
+        params: { slug: project.fields.Slug },
+        props: {
+          fields: project.fields,
+          relatedPosts: getRelatedPosts(records, project, 6),
+        },
+      };
+    });
 }
 
 const { slug } = Astro.params;
