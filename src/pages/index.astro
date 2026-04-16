@@ -62,6 +62,17 @@ function byOrder(field: string) {
   };
 }
 
+function getOrderedProjects(
+  projects: any[],
+  field: string,
+  limit?: number
+) {
+  const ordered = projects
+    .filter((project: any) => typeof project?.fields?.[field] === "number")
+    .sort(byOrder(field));
+  return typeof limit === "number" ? ordered.slice(0, limit) : ordered;
+}
+
 const curatedThemeProjects = radicalDataProjects
   .filter((project: any) => THEME_ORDER.includes(project?.fields?.["Homepage Theme"]))
   .sort(byOrder("Homepage Theme Order"));
@@ -74,12 +85,16 @@ const themes = THEME_ORDER.map((themeName) => ({
   ),
 })).filter((theme) => theme.project);
 
-const featuredProjects = radicalDataProjects
-  .filter((project: any) => project?.fields?.["Homepage Featured"] === true)
-  .sort(byOrder("Homepage Featured Order"));
+const curatedHomepageFeatured = getOrderedProjects(
+  radicalDataProjects,
+  "Homepage Feature Order",
+  6
+);
 
 const homepageFeatured =
-  featuredProjects.length > 0 ? featuredProjects.slice(0, 6) : radicalDataProjects.slice(0, 6);
+  curatedHomepageFeatured.length > 0
+    ? curatedHomepageFeatured
+    : radicalDataProjects.slice(0, 6);
 
 const archiveTeaserProjects = archiveProjects
   .filter((project: any) => project?.fields?.["Homepage Archive Teaser"] === true)
