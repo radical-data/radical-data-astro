@@ -1,23 +1,171 @@
 ---
 import MailingList from "./MailingList.astro";
-import SocialMediaLogos from "./SocialMediaLogos.astro";
-// let currentYear = new Date().getFullYear();
+import Icon, { type Props as IconProps } from "./Icon.astro";
+import { SOCIAL, SOCIAL_FOR_FOOTER } from "~/config/social";
+
+function getPlatformLabel(entry: (typeof SOCIAL_FOR_FOOTER)[number]): string {
+  const platformKey = Object.entries(SOCIAL).find(
+    ([_, social]) => social === entry
+  )?.[0];
+  if (!platformKey) return "Social media";
+  return platformKey.charAt(0).toUpperCase() + platformKey.slice(1);
+}
 ---
 
-<footer class="region prose wrapper">
-  <h2>Let's stay in touch.</h2>
-  <section>
-    <p>Join our <em>mailing list</em> to see what we do next:</p>
-    <MailingList />
-  </section>
-  <section>
-    <p>
-      and follow us on <em>social media</em> to see what we're doing now:
-    </p>
-    <SocialMediaLogos />
-  </section>
-  <p>or <a href="https://airtable.com/shrBpNUSMSTQpOXQv">contact</a> us.</p>
-  <!-- <section>
-      <p id="copyright">© {currentYear} Radical Data. All rights reserved.</p>
-    </section> -->
+<footer class="footer wrapper">
+  <div class="footer__grid">
+    <section class="footer__panel flow">
+      <img
+        src="/radical-data-logo.svg"
+        alt="Radical Data"
+        class="footer__logo"
+      />
+      <p class="footer__kicker">Newsletter</p>
+      <h2>Stay close to what we are building.</h2>
+      <p>
+        Join our mailing list for projects, workshops, writing and references from
+        across Radical Data.
+      </p>
+      <MailingList />
+    </section>
+
+    <section class="footer__panel flow">
+      <p class="footer__kicker">Elsewhere</p>
+      <h2>Follow the work as it moves.</h2>
+      <p>
+        Social media, public updates, experiments, tools and traces of what we are
+        doing now.
+      </p>
+
+      <div class="footer__socials">
+        {
+          SOCIAL_FOR_FOOTER.map((entry) => (
+            <a href={entry.url} class="footer__social">
+              <span class="sr-only">{getPlatformLabel(entry)}</span>
+              <Icon icon={entry.icon as IconProps["icon"]} />
+            </a>
+          ))
+        }
+      </div>
+
+      <p class="footer__contact">
+        Or <a href="/contact/">get in touch</a>.
+      </p>
+    </section>
+  </div>
 </footer>
+
+<style>
+  .footer {
+    padding-top: clamp(3rem, 7vw, 5rem);
+    padding-bottom: clamp(3rem, 7vw, 5rem);
+    border-top: 2px solid #111;
+    margin-top: clamp(3rem, 7vw, 5rem);
+    background: #f3f0e8;
+  }
+
+  .footer__grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  }
+
+  .footer__panel {
+    border: 2px solid #111;
+    background: #fff;
+    padding: 1rem;
+    box-shadow: 0.35rem 0.35rem 0 #111;
+  }
+
+  .footer__logo {
+    display: block;
+    width: clamp(12rem, 18vw, 18rem);
+    height: auto;
+  }
+
+  .footer__kicker {
+    font-size: 0.76rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.72;
+  }
+
+  .footer h2 {
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", sans-serif;
+    font-size: clamp(1.7rem, 4vw, 2.8rem);
+    line-height: 0.94;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    max-width: 12ch;
+  }
+
+  .footer p,
+  .footer a,
+  .footer input,
+  .footer button {
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", sans-serif;
+  }
+
+  .footer__socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .footer__social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border: 2px solid #111;
+    background: #fff;
+    color: #111;
+    text-decoration: none;
+    box-shadow: 0.2rem 0.2rem 0 #111;
+  }
+
+  .footer__social:hover,
+  .footer__social:focus {
+    transform: translate(-0.08rem, -0.08rem);
+  }
+
+  .footer__contact a {
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .flow > * + * {
+    margin-top: 0.95rem;
+  }
+
+  :global(.footer #mc_embed_signup_scroll) {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  :global(.footer .mc-field-group input),
+  :global(.footer #mc-embedded-subscribe) {
+    width: 100%;
+    border: 2px solid #111;
+    background: #fff;
+    color: #111;
+    padding: 0.9rem 1rem;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  :global(.footer #mc-embedded-subscribe) {
+    background: #ff5b4d;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0.35rem 0.35rem 0 #111;
+    text-transform: uppercase;
+    font-weight: 900;
+  }
+</style>

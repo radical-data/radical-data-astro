@@ -1,139 +1,738 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { SITE } from "../config";
-import { mostRecentPosts } from "~/lib/mostRecentPosts";
-import Card from "~/components/Card.astro";
-const responseNotRDProjects = await fetch(
-  `https://api.airtable.com/v0/${
-    import.meta.env.DB_ID
-  }/Projects?view=grid-not-rd`,
-  {
-    headers: {
-      Authorization: `Bearer ${import.meta.env.DB_TOKEN}`,
-    },
-  }
-);
-const notRDProjects = await responseNotRDProjects.json();
-const mostRecentProjects = mostRecentPosts(notRDProjects.records, "Created", -3);
+import MailingList from "~/components/MailingList.astro";
 
-const responseRadicalDataProjects = await fetch(
-  `https://api.airtable.com/v0/${
-    import.meta.env.DB_ID
-  }/Projects?view=grid-rd-only`,
-  {
-    headers: {
-      Authorization: `Bearer ${import.meta.env.DB_TOKEN}`,
-    },
+const headers = {
+  Authorization: `Bearer ${import.meta.env.DB_TOKEN}`,
+};
+
+const baseUrl = `https://api.airtable.com/v0/${import.meta.env.DB_ID}/Projects`;
+
+async function fetchProjects(view: string) {
+  const response = await fetch(
+    `${baseUrl}?view=${encodeURIComponent(view)}`,
+    { headers }
+  );
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch Airtable view: ${view}`);
   }
-);
-const radicalDataProjects = await responseRadicalDataProjects.json();
-const randomRadicalDataProjects = radicalDataProjects.records
-  .sort(() => 0.5 - Math.random())
-  .slice(0, 3);
+
+  const data = await response.json();
+  return data.records ?? [];
+}
+
+const [archiveProjects, radicalDataProjects] = await Promise.all([
+  fetchProjects("grid-not-rd"),
+  fetchProjects("grid-rd-only"),
+]);
+
+const THEME_ORDER = [
+  "Collective Intelligence",
+  "Tools for Postcapitalism",
+  "Tecnología Popular",
+] as const;
+
+const THEME_META: Record<
+  (typeof THEME_ORDER)[number],
+  { slug: string; description: string }
+> = {
+  "Collective Intelligence": {
+    slug: "collective-intelligence",
+    description:
+      "Systems, methods and experiments for thinking, deciding and organising together.",
+  },
+  "Tools for Postcapitalism": {
+    slug: "tools-for-postcapitalism",
+    description:
+      "Tools and infrastructures for cooperation, autonomy and life beyond extraction.",
+  },
+  "Tecnología Popular": {
+    slug: "tecnologia-popular",
+    description:
+      "Community-rooted technology shaped through education, shared learning and collective practice.",
+  },
+};
+
+function byOrder(field: string) {
+  return (a: any, b: any) => {
+    const aOrder = Number(a?.fields?.[field] ?? 999);
+    const bOrder = Number(b?.fields?.[field] ?? 999);
+    return aOrder - bOrder;
+  };
+}
+
+const curatedThemeProjects = radicalDataProjects
+  .filter((project: any) => THEME_ORDER.includes(project?.fields?.["Homepage Theme"]))
+  .sort(byOrder("Homepage Theme Order"));
+
+const themes = THEME_ORDER.map((themeName) => ({
+  name: themeName,
+  ...THEME_META[themeName],
+  project: curatedThemeProjects.find(
+    (project: any) => project?.fields?.["Homepage Theme"] === themeName
+  ),
+})).filter((theme) => theme.project);
+
+const featuredProjects = radicalDataProjects
+  .filter((project: any) => project?.fields?.["Homepage Featured"] === true)
+  .sort(byOrder("Homepage Featured Order"));
+
+const homepageFeatured =
+  featuredProjects.length > 0 ? featuredProjects.slice(0, 6) : radicalDataProjects.slice(0, 6);
+
+const archiveTeaserProjects = archiveProjects
+  .filter((project: any) => project?.fields?.["Homepage Archive Teaser"] === true)
+  .sort(byOrder("Homepage Archive Teaser Order"));
+
+const homepageArchiveTeaser =
+  archiveTeaserProjects.length > 0
+    ? archiveTeaserProjects.slice(0, 3)
+    : archiveProjects.slice(0, 3);
+
+const archiveCount = archiveProjects.length;
+const archiveLead =
+  archiveCount > 0
+    ? `${archiveCount}+ projects using data for joy, resistance and collective power.`
+    : "Projects using data for joy, resistance and collective power.";
 ---
 
 <Layout title={`${SITE.title} | ${SITE.description}`}>
-  <main>
-    <article class="region prose wrapper hero">
-      <h1>{SITE.name}</h1>
-      <h2>
-        Claiming <em>data</em> as a tool for <em>joy</em> and a million <span
-          class="gradient-text">liberations</span
-        >.
-      </h2>
-    </article>
+  <main class="home">
+    <section class="wrapper home-hero">
+      <div class="home-hero__topline">
+        <span class="home-topline__item">Collective</span>
+        <span class="home-topline__item">Technology</span>
+        <span class="home-topline__item">Liberation</span>
+      </div>
 
-    <article class="region prose wrapper">
-      <ul role="list" class="grid features">
-        <li class="flow">
-          <h3>collective</h3>
+      <div class="home-brand">
+        <div class="home-brand__wordmark">
+          <h1>We create technology for liberation and joy.</h1>
+        </div>
+      </div>
+
+      <div class="home-hero__bottom">
+        <p class="home-hero__lead">
+          We build tools, research, education and cultural work that treat technology
+          as something communities can shape together.
+        </p>
+
+        <ul role="list" class="home-hero__tags">
+          <li>queer data</li>
+          <li>tech feminista</li>
+          <li>activist maps</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="wrapper home-section home-section--intro">
+      <div class="home-section-heading">
+        <p class="home-kicker">What we are</p>
+        <h2>Collective, studio, research practice and learning space.</h2>
+      </div>
+
+      <ul role="list" class="home-pillars">
+        <li class="home-pillar">
+          <h3>Collective</h3>
           <p>
-            We are a collective of <em
-              >mathematicians, technologists, dancers and designers</em
-            > working with digital technology for <em>joy and liberation</em>.
+            We are a collective of mathematicians, technologists, artists, dancers
+            and organisers working with digital technology for joy and liberation.
           </p>
         </li>
-        <li class="flow">
-          <h3>studio</h3>
+        <li class="home-pillar">
+          <h3>Studio</h3>
           <p>
-            We create <em>tools, analyses and artworks</em> that are
-            infused with queerness and decoloniality.
+            We create tools, analyses, infrastructures and artworks infused with
+            queerness, decoloniality and experimentation.
           </p>
         </li>
-
-        <li class="flow">
-          <h3>research</h3>
+        <li class="home-pillar">
+          <h3>Research</h3>
           <p>
-            We research how data is and can be used. For two years, we've been
-            adding the best of what we've found to our <em>archive</em>.
+            We study how data is and can be used, and collect references, methods
+            and projects through the Radical Data Archive.
           </p>
         </li>
-
-        <li class="flow">
-          <h3>education</h3>
+        <li class="home-pillar">
+          <h3>Education</h3>
           <p>
-            We want to see activists use technology as a
-            tool shape the world. To do this, we regularly run <em>workshops</em
-            > and create <em>videos</em> for social media.
+            We run workshops, share tools and create public-facing learning formats
+            so more people can shape technology on their own terms.
           </p>
         </li>
       </ul>
-    </article>
+    </section>
 
-    <article class="region prose wrapper">
-      <h2>Our Projects</h2>
-      <h3>We're making data analyses, digital tools and writing books.</h3>
-      <p>Here's a random selection:</p>
-      <ul>
-        {
-          randomRadicalDataProjects.map((project: any) => (
-            <li>
-              <Card
-                name={project.fields.Name}
-                description={project.fields.Summary}
-                image={project.fields["Featured Image"]}
-                link={`/projects/${project.fields.Slug}`}
-              />
-            </li>
-          ))
-        }
-      </ul>
-      <p>
-        See all <a href="projects/">our projects</a>!
-      </p>
-    </article>
-  </main>
+    {
+      themes.length > 0 && (
+        <section class="wrapper home-section">
+          <div class="home-section-heading">
+            <p class="home-kicker">Themes</p>
+            <h2>Three ways our work takes shape.</h2>
+          </div>
 
-  <article class="region prose wrapper">
-    <h2>The Radical Data Archive</h2>
-    <h3>We research ways data is being used around the world.</h3>
-    <p>The projects most recently added to the archive are:</p>
-    <ul>
+          <div class="home-themes">
+            {themes.map((theme) => (
+              <article class={`theme-card theme-card--${theme.slug}`}>
+                <div class="theme-card__header">
+                  <p class="theme-card__label">{theme.name}</p>
+                  <p class="theme-card__description">{theme.description}</p>
+                </div>
+
+                <a
+                  href={`/projects/${theme.project.fields.Slug}`}
+                  class="theme-card__project"
+                >
+                  <p class="theme-card__project-label">Featured project</p>
+                  <h3>{theme.project.fields.Name}</h3>
+                  {theme.project.fields.Summary && (
+                    <p>{theme.project.fields.Summary}</p>
+                  )}
+                </a>
+              </article>
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    {
+      homepageFeatured.length > 0 && (
+        <section class="wrapper home-section">
+          <div class="home-section-heading">
+            <p class="home-kicker">RD highlighted</p>
+            <h2>Selected projects.</h2>
+          </div>
+
+          <div class="highlight-row" role="list" aria-label="Selected Radical Data projects">
+            {homepageFeatured.map((project: any) => (
+              <a
+                role="listitem"
+                href={`/projects/${project.fields.Slug}`}
+                class="highlight-card"
+              >
+                <p class="highlight-card__eyebrow">Project</p>
+                <h3>{project.fields.Name}</h3>
+                {project.fields.Summary && <p>{project.fields.Summary}</p>}
+              </a>
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    <section class="wrapper home-section archive-teaser">
+      <div class="home-section-heading">
+        <p class="home-kicker">Archive</p>
+        <h2>The Radical Data Archive</h2>
+      </div>
+
+      <div class="archive-teaser__intro">
+        <p class="archive-teaser__lead">{archiveLead}</p>
+        <p>
+          Queer data, tech feminista, activist maps, digital resistance and community
+          infrastructures — from México to Berlin and beyond.
+        </p>
+        <ul role="list" class="archive-tags">
+          <li>queer data</li>
+          <li>tech feminista</li>
+          <li>activist maps</li>
+        </ul>
+      </div>
+
       {
-        mostRecentProjects.map((project: any) => (
-          <li>
-            <Card
-              name={project.fields.Name}
-              description={project.fields.Summary}
-              image={project.fields["Featured Image"]}
-              link={`/projects/${project.fields.Slug}`}
-            />
-          </li>
-        ))
+        homepageArchiveTeaser.length > 0 && (
+          <div class="archive-grid">
+            {homepageArchiveTeaser.map((project: any) => (
+              <a
+                href={`/projects/${project.fields.Slug}`}
+                class="archive-card"
+              >
+                <h3>{project.fields.Name}</h3>
+                {project.fields.Summary && <p>{project.fields.Summary}</p>}
+              </a>
+            ))}
+          </div>
+        )
       }
-    </ul>
-    <p>
-      Are we misssing a great project? Suggest it through the <a
-        href="https://airtable.com/shr2cGQbbfIogLrun">project suggestion form</a
-      >!
-    </p>
-    <p>
-      See all the projects in <a href="archive/">the archive</a>!
-    </p>
-  </article>
+
+      <p class="archive-teaser__cta">
+        <a href="/archive/" class="button-link">Explore the full archive →</a>
+      </p>
+    </section>
+
+    <section class="wrapper home-section home-section--closing">
+      <div class="home-contact-grid">
+        <article class="home-cta flow">
+          <p class="home-kicker">Newsletter</p>
+          <h2>Stay close to what we are building.</h2>
+          <p>
+            We send projects, tools, workshops, writing and references from across
+            Radical Data.
+          </p>
+          <MailingList />
+        </article>
+
+        <article class="home-cta flow">
+          <p class="home-kicker">Contact</p>
+          <h2>Work with us, invite us, or send us a project.</h2>
+          <p>
+            Want to collaborate, host a workshop, invite a talk, or suggest something
+            for the archive?
+          </p>
+          <p>
+            <a href="/contact/" class="button-link">Get in touch →</a>
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
 </Layout>
+
 <style>
-  li {
+  .home {
+    --theme-collective-intelligence: #ffe500;
+    --theme-tools-for-postcapitalism: #ff5b4d;
+    --theme-tecnologia-popular: #204cff;
+    --home-paper: #f3f0e8;
+    --home-ink: #111;
+    --home-border: #111;
+    --home-shadow: 0.35rem 0.35rem 0 var(--home-border);
+    --home-font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", sans-serif;
+
+    background: var(--home-paper);
+    color: var(--home-ink);
+    font-family: var(--home-font);
+  }
+
+  .home :global(h1),
+  .home :global(h2),
+  .home :global(h3),
+  .home :global(h4),
+  .home :global(p),
+  .home :global(a),
+  .home :global(li),
+  .home :global(input),
+  .home :global(button) {
+    font-family: var(--home-font);
+  }
+
+  .home-section {
+    padding-block: clamp(2.5rem, 6vw, 5rem);
+    border-top: 2px solid var(--home-border);
+  }
+
+  .home-kicker {
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgb(17 17 17 / 0.72);
+  }
+
+  .home-section-heading {
+    display: grid;
+    gap: 0.55rem;
+    margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .home-section-heading h2 {
+    max-width: 16ch;
+    font-size: clamp(2rem, 5vw, 4.25rem);
+    line-height: 0.92;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+  }
+
+  .home-hero {
+    padding-top: clamp(2rem, 5vw, 4rem);
+    padding-bottom: clamp(2.5rem, 6vw, 4.5rem);
+  }
+
+  .home-hero__topline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .home-topline__item {
+    display: inline-block;
+    padding: 0.35rem 0.7rem;
+    border: 2px solid var(--home-border);
+    font-size: 0.78rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    background: white;
+  }
+
+  .home-brand {
+    display: grid;
+    gap: 1rem;
+    align-items: end;
+    margin-bottom: 1.5rem;
+  }
+
+  .home-brand__logo-wrap {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .home-brand__logo {
+    width: clamp(14rem, 24vw, 24rem);
+    height: auto;
+  }
+
+  .home-brand__wordmark {
+    display: grid;
+    gap: 0.6rem;
+    max-width: 64rem;
+  }
+
+  .home-brand h1 {
+    font-size: clamp(3.25rem, 10vw, 8rem);
+    line-height: 0.86;
+    max-width: 15ch;
+    font-weight: 900;
+    letter-spacing: -0.06em;
+    text-transform: uppercase;
+  }
+
+  .home-hero__bottom {
+    display: grid;
+    gap: 1rem;
+    align-items: start;
+  }
+
+  .home-hero__lead {
+    font-size: clamp(1.15rem, 2vw, 1.55rem);
+    line-height: 1.08;
+    max-width: 30ch;
+    font-weight: 700;
+  }
+
+  .home-hero__tags {
     list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0;
+    margin: 0;
+  }
+
+  .home-hero__tags li {
+    display: inline-block;
+    padding: 0.45rem 0.75rem;
+    border: 2px solid var(--home-border);
+    background: white;
+    font-size: 0.82rem;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  .home-pillars {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 1rem;
+  }
+
+  .home-pillar {
+    padding: 1rem;
+    border: 2px solid var(--home-border);
+    background: white;
+    box-shadow: var(--home-shadow);
+  }
+
+  .home-pillar h3 {
+    margin-bottom: 0.6rem;
+    font-size: clamp(1.25rem, 2.4vw, 1.8rem);
+    font-weight: 900;
+    line-height: 0.95;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+  }
+
+  .home-pillar p {
+    font-size: 0.98rem;
+    line-height: 1.2;
+    max-width: 26ch;
+  }
+
+  .home-themes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    gap: 1rem;
+  }
+
+  .theme-card {
+    border: 2px solid var(--home-border);
+    padding: 1rem;
+    color: #111;
+    display: grid;
+    gap: 1rem;
+    box-shadow: var(--home-shadow);
+  }
+
+  .theme-card--collective-intelligence {
+    background: var(--theme-collective-intelligence);
+  }
+
+  .theme-card--tools-for-postcapitalism {
+    background: var(--theme-tools-for-postcapitalism);
+    color: white;
+  }
+
+  .theme-card--tecnologia-popular {
+    background: var(--theme-tecnologia-popular);
+    color: white;
+  }
+
+  .theme-card__header,
+  .theme-card__project {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .theme-card__label {
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 0.8rem;
+  }
+
+  .theme-card__description {
+    max-width: 26ch;
+    line-height: 1.1;
+    font-size: 0.98rem;
+  }
+
+  .theme-card__project {
+    text-decoration: none;
+    color: inherit;
+    background: rgb(255 255 255 / 0.24);
+    border: 2px solid var(--home-border);
+    padding: 0.9rem;
+    min-height: 13rem;
+  }
+
+  .theme-card--collective-intelligence .theme-card__project {
+    background: rgb(255 255 255 / 0.4);
+  }
+
+  .theme-card__project-label {
+    font-size: 0.72rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    opacity: 0.8;
+  }
+
+  .theme-card__project h3 {
+    font-size: clamp(1.5rem, 3vw, 2.3rem);
+    line-height: 0.94;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+  }
+
+  .theme-card__project p:last-child {
+    font-size: 0.95rem;
+    line-height: 1.15;
+  }
+
+  .theme-card__project:hover {
+    transform: translate(-0.15rem, -0.15rem);
+  }
+
+  .highlight-row {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(16rem, 20rem);
+    gap: 1rem;
+    overflow-x: auto;
+    padding-bottom: 0.75rem;
+    scroll-snap-type: x proximity;
+  }
+
+  .highlight-card {
+    scroll-snap-align: start;
+    display: grid;
+    gap: 0.6rem;
+    text-decoration: none;
+    color: var(--home-ink);
+    background: white;
+    border: 2px solid var(--home-border);
+    padding: 1rem;
+    min-height: 13rem;
+    box-shadow: var(--home-shadow);
+  }
+
+  .highlight-card__eyebrow {
+    font-size: 0.72rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: rgb(17 17 17 / 0.72);
+  }
+
+  .highlight-card h3,
+  .archive-card h3 {
+    font-size: clamp(1.45rem, 2.6vw, 2.1rem);
+    line-height: 0.95;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+  }
+
+  .highlight-card p:last-child,
+  .archive-card p {
+    font-size: 0.95rem;
+    line-height: 1.14;
+  }
+
+  .archive-teaser__intro {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    max-width: 44rem;
+  }
+
+  .archive-teaser__lead {
+    font-size: clamp(1.4rem, 2.8vw, 2rem);
+    font-weight: 900;
+    line-height: 0.98;
+    text-transform: uppercase;
+    max-width: 18ch;
+  }
+
+  .archive-tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0;
+    margin: 0;
+  }
+
+  .archive-tags li {
+    border: 2px solid var(--home-border);
+    padding: 0.4rem 0.7rem;
+    font-size: 0.78rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    background: white;
+  }
+
+  .archive-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 1rem;
+  }
+
+  .archive-card {
+    display: grid;
+    gap: 0.65rem;
+    text-decoration: none;
+    color: var(--home-ink);
+    border: 2px solid var(--home-border);
+    background: white;
+    padding: 1rem;
+    box-shadow: var(--home-shadow);
+  }
+
+  .archive-teaser__cta {
+    margin-top: 1.5rem;
+  }
+
+  .button-link {
+    display: inline-block;
+    padding: 0.85rem 1.1rem;
+    border: 2px solid var(--home-border);
+    background: var(--theme-tecnologia-popular);
+    color: white;
+    text-decoration: none;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    box-shadow: var(--home-shadow);
+  }
+
+  .button-link:hover {
+    text-decoration: none;
+    transform: translate(-0.12rem, -0.12rem);
+  }
+
+  .home-contact-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  }
+
+  .home-cta {
+    border: 2px solid var(--home-border);
+    padding: 1rem;
+    background: white;
+    box-shadow: var(--home-shadow);
+  }
+
+  .home-cta h2 {
+    font-size: clamp(1.7rem, 4vw, 2.8rem);
+    line-height: 0.94;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    max-width: 12ch;
+  }
+
+  .flow > * + * {
+    margin-top: 0.95rem;
+  }
+
+  .home :global(#mc_embed_signup_scroll) {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .home :global(.mc-field-group input),
+  .home :global(#mc-embedded-subscribe) {
+    width: 100%;
+    border: 2px solid var(--home-border);
+    background: white;
+    color: var(--home-ink);
+    padding: 0.9rem 1rem;
+    font-family: var(--home-font);
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  .home :global(#mc-embedded-subscribe) {
+    background: var(--theme-tools-for-postcapitalism);
+    color: white;
+    cursor: pointer;
+    box-shadow: var(--home-shadow);
+    text-transform: uppercase;
+    font-weight: 900;
+  }
+
+  @media (min-width: 48rem) {
+    .home-brand {
+      grid-template-columns: auto 1fr;
+      gap: 1.5rem;
+      align-items: end;
+    }
+
+    .home-hero__bottom {
+      grid-template-columns: minmax(0, 2fr) minmax(16rem, 1fr);
+      gap: 1.5rem;
+      align-items: start;
+    }
   }
 </style>
