@@ -1,9 +1,20 @@
 ---
-const { name, description, link } = Astro.props;
+import { getThemeMeta, isTheme } from "~/lib/themes";
+
+const { name, description, link, theme } = Astro.props;
+const themeName = isTheme(theme) ? theme : undefined;
+const themeMeta = themeName ? getThemeMeta(themeName) : undefined;
 ---
 
 <div class="card">
   <a href={link}>
+    {
+      themeName && themeMeta && (
+        <p class={`card__theme-pill card__theme-pill--${themeMeta.slug}`}>
+          {themeName}
+        </p>
+      )
+    }
     <h2>{name}</h2>
     <h3>
       {
@@ -16,3 +27,44 @@ const { name, description, link } = Astro.props;
     </h3>
   </a>
 </div>
+
+<style>
+  .card__theme-pill {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    margin-bottom: 1rem;
+    padding: 0.4rem 0.7rem;
+    border: 2px solid #111;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 900;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    box-shadow: 0.16rem 0.16rem 0 #111;
+    color: #111;
+    background: #fff;
+  }
+
+  .card__theme-pill--collective-intelligence {
+    background: #ffe500;
+    color: #111;
+  }
+
+  .card__theme-pill--tools-for-postcapitalism {
+    background: #ff5b4d;
+    color: #fff;
+  }
+
+  .card__theme-pill--tecnologia-popular {
+    background: #204cff;
+    color: #fff;
+  }
+
+  @media (prefers-contrast: more) {
+    .card__theme-pill {
+      box-shadow: none;
+    }
+  }
+</style>

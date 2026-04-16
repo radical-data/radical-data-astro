@@ -1,6 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { SITE } from "../config";
+import {
+  THEME_META,
+  THEME_ORDER,
+  isTheme,
+  type ThemeName,
+} from "~/lib/themes";
 
 const headers = {
   Authorization: `Bearer ${import.meta.env.DB_TOKEN}`,
@@ -27,67 +33,41 @@ const [archiveProjects, radicalDataProjects] = await Promise.all([
   fetchProjects("grid-rd-only"),
 ]);
 
-const THEME_ORDER = [
-  "Collective Intelligence",
-  "Tools for Postcapitalism",
-  "Tecnología Popular",
-] as const;
+const FEATURE_ORDER_FIELD = "Feature Order";
 
-const THEME_META: Record<
-  (typeof THEME_ORDER)[number],
-  { slug: string; description: string }
-> = {
-  "Collective Intelligence": {
-    slug: "collective-intelligence",
-    description:
-      "Systems, methods and experiments for thinking, deciding and organising together.",
-  },
-  "Tools for Postcapitalism": {
-    slug: "tools-for-postcapitalism",
-    description:
-      "Tools and infrastructures for cooperation, autonomy and life beyond extraction.",
-  },
-  "Tecnología Popular": {
-    slug: "tecnologia-popular",
-    description:
-      "Community-rooted technology shaped through education, shared learning and collective practice.",
-  },
-};
-
-function byOrder(field: string) {
-  return (a: any, b: any) => {
-    const aOrder = Number(a?.fields?.[field] ?? 999);
-    const bOrder = Number(b?.fields?.[field] ?? 999);
-    return aOrder - bOrder;
-  };
+function getFeatureOrder(project: any) {
+  const value = project?.fields?.[FEATURE_ORDER_FIELD];
+  return typeof value === "number" && Number.isFinite(value) ? value : null;
 }
 
-function getOrderedProjects(
+function byFeatureOrder(a: any, b: any) {
+  const aOrder = getFeatureOrder(a) ?? 999;
+  const bOrder = getFeatureOrder(b) ?? 999;
+  return aOrder - bOrder;
+}
+
+function getOrderedFeaturedProjects(
   projects: any[],
-  field: string,
   limit?: number
 ) {
   const ordered = projects
-    .filter((project: any) => typeof project?.fields?.[field] === "number")
-    .sort(byOrder(field));
+    .filter((project: any) => getFeatureOrder(project) !== null)
+    .sort(byFeatureOrder);
+
   return typeof limit === "number" ? ordered.slice(0, limit) : ordered;
 }
-
-const curatedThemeProjects = radicalDataProjects
-  .filter((project: any) => THEME_ORDER.includes(project?.fields?.["Homepage Theme"]))
-  .sort(byOrder("Homepage Theme Order"));
 
 const themes = THEME_ORDER.map((themeName) => ({
   name: themeName,
   ...THEME_META[themeName],
-  project: curatedThemeProjects.find(
-    (project: any) => project?.fields?.["Homepage Theme"] === themeName
-  ),
+  project: radicalDataProjects
+    .filter((project: any) => project?.fields?.["Theme"] === themeName)
+    .filter((project: any) => getFeatureOrder(project) !== null)
+    .sort(byFeatureOrder)[0],
 })).filter((theme) => theme.project);
 
-const curatedHomepageFeatured = getOrderedProjects(
+const curatedHomepageFeatured = getOrderedFeaturedProjects(
   radicalDataProjects,
-  "Homepage Feature Order",
   6
 );
 
@@ -96,13 +76,10 @@ const homepageFeatured =
     ? curatedHomepageFeatured
     : radicalDataProjects.slice(0, 6);
 
-const archiveTeaserProjects = archiveProjects
-  .filter((project: any) => project?.fields?.["Homepage Archive Teaser"] === true)
-  .sort(byOrder("Homepage Archive Teaser Order"));
-
+const curatedHomepageArchiveTeaser = getOrderedFeaturedProjects(archiveProjects, 3);
 const homepageArchiveTeaser =
-  archiveTeaserProjects.length > 0
-    ? archiveTeaserProjects.slice(0, 3)
+  curatedHomepageArchiveTeaser.length > 0
+    ? curatedHomepageArchiveTeaser
     : archiveProjects.slice(0, 3);
 
 const archiveCount = archiveProjects.length;
@@ -181,7 +158,7 @@ const archiveLead =
 
     {
       themes.length > 0 && (
-        <section class="wrapper home-section">
+        <section class="wrapper home-section" id="themes">
           <div class="home-section-heading">
             <p class="home-kicker">Themes</p>
             <h2>Three ways our work takes shape.</h2>
@@ -227,6 +204,13 @@ const archiveLead =
                 href={`/projects/${project.fields.Slug}`}
                 class="highlight-card"
               >
+                {
+                  isTheme(project.fields.Theme) && (
+                    <p class={`theme-pill theme-pill--${THEME_META[project.fields.Theme as ThemeName].slug}`}>
+                      {project.fields.Theme}
+                    </p>
+                  )
+                }
                 <p class="highlight-card__eyebrow">Project</p>
                 <h3>{project.fields.Name}</h3>
                 {project.fields.Summary && <p>{project.fields.Summary}</p>}
@@ -264,6 +248,13 @@ const archiveLead =
                 href={`/projects/${project.fields.Slug}`}
                 class="archive-card"
               >
+                {
+                  isTheme(project.fields.Theme) && (
+                    <p class={`theme-pill theme-pill--${THEME_META[project.fields.Theme as ThemeName].slug}`}>
+                      {project.fields.Theme}
+                    </p>
+                  )
+                }
                 <h3>{project.fields.Name}</h3>
                 {project.fields.Summary && <p>{project.fields.Summary}</p>}
               </a>
@@ -561,6 +552,39 @@ const archiveLead =
     padding: 1rem;
     min-height: 13rem;
     box-shadow: var(--home-shadow);
+  }
+
+  .theme-pill {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    margin-bottom: 0.35rem;
+    padding: 0.4rem 0.7rem;
+    border: 2px solid #111;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 900;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    box-shadow: 0.16rem 0.16rem 0 #111;
+    color: #111;
+    background: #fff;
+  }
+
+  .theme-pill--collective-intelligence {
+    background: #ffe500;
+    color: #111;
+  }
+
+  .theme-pill--tools-for-postcapitalism {
+    background: #ff5b4d;
+    color: #fff;
+  }
+
+  .theme-pill--tecnologia-popular {
+    background: #204cff;
+    color: #fff;
   }
 
   .highlight-card__eyebrow {
