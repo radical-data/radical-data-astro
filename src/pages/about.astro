@@ -1,0 +1,310 @@
+---
+import Layout from "@layouts/Layout.astro";
+---
+
+<Layout title="About | Radical Data">
+  <main class="about-page">
+    <section class="wrapper about-hero">
+      <p class="about-kicker">About</p>
+      <h1>Technology for liberation and joy.</h1>
+      <p class="about-intro">
+        Radical Data is a collective that creates technology for liberation and joy.
+        Bringing together practices from data science, socially engaged art and Latin
+        American activism, we build community-based projects that redefine the role of
+        technology in our present and future.
+      </p>
+    </section>
+
+    <section class="wrapper about-section">
+      <div class="about-section-heading">
+        <p class="about-kicker">Our vision</p>
+        <h2>We start from the people usually excluded from designing technology.</h2>
+      </div>
+
+      <div class="about-copy flow">
+        <p>
+          Our work starts with the people usually left out of designing technology,
+          even though they live with its consequences every day. People whose
+          knowledge is embodied, local, political and routinely ignored by mainstream
+          tech.
+        </p>
+        <p>
+          We create spaces to learn, build, argue, imagine and break things together.
+          That means workshops, collective prototypes, artistic experiments and tools
+          shaped with communities from the ground up. Spaces where people shape
+          technology instead of being managed by it.
+        </p>
+        <p>
+          Our projects experiment with different technological paradigms: tools for
+          collective life, not billionaire fantasies; infrastructures that serve
+          people, not platforms that extract from them.
+        </p>
+        <p>
+          We build and test radical utopias together, reimagining what technology can
+          do in the present and what kind of future it can help us make.
+        </p>
+      </div>
+    </section>
+
+    <section class="wrapper about-section">
+      <div class="about-section-heading">
+        <p class="about-kicker">Our lines of work</p>
+        <h2>Three ways our practice takes shape.</h2>
+      </div>
+
+      <div class="work-grid">
+        <article class="work-card work-card--yellow">
+          <p class="work-card__kicker">Line of work</p>
+          <h3>Tools for Postcapitalism</h3>
+          <p>
+            We design and prototype tools that make different economic relations
+            possible: tools for cooperation, shared resources and collective
+            abundance beyond extraction, scarcity and competition.
+          </p>
+        </article>
+
+        <article class="work-card work-card--red">
+          <p class="work-card__kicker">Line of work</p>
+          <h3>Collective Intelligence</h3>
+          <p>
+            We build systems that help people think, decide and act together. We
+            bring different forms of knowledge into the same space: lived,
+            technical, embodied, human and more-than-human.
+          </p>
+        </article>
+
+        <article class="work-card work-card--blue">
+          <p class="work-card__kicker">Line of work</p>
+          <h3>Tecnología Popular</h3>
+          <p>
+            We develop community-centred technology practices through education,
+            experimentation and shared learning. For us, technology is not
+            something to passively consume. It is something people can understand,
+            shape and own together.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="wrapper about-section">
+      <div class="about-section-heading">
+        <p class="about-kicker">Our team</p>
+        <h2>People shaping Radical Data.</h2>
+      </div>
+
+      <div class="team-grid">
+        <article class="team-card flow">
+          <div>
+            <p class="team-card__role">Founder</p>
+            <h3>Rayén Jara Mitrovich</h3>
+          </div>
+          <p>
+            Rayén is a Chilean artist, activist and researcher whose work focuses
+            on intimacy, bodies and their interaction with technology. After ten
+            years of working on art projects with communities — including
+            Indigenous communities living in isolated areas of Chile, young people
+            in jail, children in social shelters and women who have experienced
+            violence — Rayén co-founded Radical Data to explore the potential of
+            technology for connection and intimacy.
+          </p>
+          <p>
+            <a href="http://rayenjaramitrovich.com" target="_blank" rel="noreferrer">
+              rayenjaramitrovich.com
+            </a>
+          </p>
+        </article>
+
+        <article class="team-card flow">
+          <div>
+            <p class="team-card__role">Founder</p>
+            <h3>Jo Jara Kroese</h3>
+          </div>
+          <p>
+            Jo is an English-Dutch mathematician, artist and technologist. Their
+            work uses data and technology to create tools for resistance and real
+            utopias. As the co-founder of Radical Data, they have built tools for
+            anti-fascism, worked as a political consultant for socialists in Latin
+            America, and made an AI that learns to be thankful.
+          </p>
+          <p>
+            <a href="http://jokroese.com" target="_blank" rel="noreferrer">
+              jokroese.com
+            </a>
+          </p>
+        </article>
+
+        <article class="team-card flow">
+          <div>
+            <p class="team-card__role">Coordination and Communication</p>
+            <h3>Ágata Bañón</h3>
+          </div>
+          <p>
+            Ágata is a Spanish artist and organiser working at the intersection of
+            gender, technology and collective imagination. With a strong
+            background in communications across public and private sectors, as
+            well as grassroots social activism, she collaborates with Radical Data
+            to strengthen organisational strategy and communications.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .about-page {
+    --about-paper: #f3f0e8;
+    --about-ink: #111;
+    --about-border: #111;
+    --about-shadow: 0.35rem 0.35rem 0 var(--about-border);
+    --about-yellow: #ffe500;
+    --about-red: #ff5b4d;
+    --about-blue: #204cff;
+    --about-font: Inter, ui-sans-serif, system-ui, -apple-system,
+      BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+    background: var(--about-paper);
+    color: var(--about-ink);
+    font-family: var(--about-font);
+  }
+
+  .about-page :global(h1),
+  .about-page :global(h2),
+  .about-page :global(h3),
+  .about-page :global(p),
+  .about-page :global(a),
+  .about-page :global(li),
+  .about-page :global(input),
+  .about-page :global(button) {
+    font-family: var(--about-font);
+  }
+
+  .about-hero {
+    padding-top: clamp(2.5rem, 6vw, 5rem);
+    padding-bottom: clamp(2rem, 5vw, 4rem);
+  }
+
+  .about-kicker {
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgb(17 17 17 / 0.72);
+  }
+
+  .about-hero h1,
+  .about-section-heading h2 {
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 0.92;
+    text-transform: uppercase;
+    max-width: 14ch;
+  }
+
+  .about-hero h1 {
+    margin-top: 0.5rem;
+    font-size: clamp(3rem, 9vw, 7rem);
+  }
+
+  .about-intro {
+    margin-top: 1.25rem;
+    max-width: 38rem;
+    font-size: clamp(1.12rem, 2vw, 1.5rem);
+    line-height: 1.12;
+    font-weight: 700;
+  }
+
+  .about-section {
+    padding-block: clamp(2.5rem, 6vw, 5rem);
+    border-top: 2px solid var(--about-border);
+  }
+
+  .about-section-heading {
+    display: grid;
+    gap: 0.55rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-section-heading h2 {
+    font-size: clamp(2rem, 5vw, 4.25rem);
+  }
+
+  .about-copy {
+    max-width: 48rem;
+  }
+
+  .about-copy p {
+    font-size: clamp(1rem, 1.5vw, 1.15rem);
+    line-height: 1.28;
+  }
+
+  .work-grid,
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    gap: 1rem;
+  }
+
+  .work-card,
+  .team-card {
+    border: 2px solid var(--about-border);
+    padding: 1rem;
+    box-shadow: var(--about-shadow);
+  }
+
+  .work-card {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .work-card--yellow {
+    background: var(--about-yellow);
+  }
+
+  .work-card--red {
+    background: var(--about-red);
+    color: white;
+  }
+
+  .work-card--blue {
+    background: var(--about-blue);
+    color: white;
+  }
+
+  .work-card__kicker,
+  .team-card__role {
+    font-size: 0.74rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .work-card h3,
+  .team-card h3 {
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    line-height: 0.94;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+  }
+
+  .work-card p:last-child,
+  .team-card p {
+    font-size: 0.98rem;
+    line-height: 1.2;
+  }
+
+  .team-card {
+    background: white;
+  }
+
+  .team-card a {
+    font-weight: 900;
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.15em;
+  }
+
+  .flow > * + * {
+    margin-top: 0.95rem;
+  }
+</style>
