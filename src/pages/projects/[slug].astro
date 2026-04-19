@@ -8,15 +8,18 @@ import Tag from "~/components/Tag.astro";
 import { getThemeMeta, isTheme } from "~/lib/themes";
 
 export async function getStaticPaths() {
-  async function fetchAllProjects(view: string) {
+  async function fetchAllRecords(table: string, view?: string) {
     const records = [];
     let offset: string | undefined;
 
     do {
       const url = new URL(
-        `https://api.airtable.com/v0/${import.meta.env.DB_ID}/Projects`
+        `https://api.airtable.com/v0/${import.meta.env.DB_ID}/${encodeURIComponent(table)}`
       );
-      url.searchParams.set("view", view);
+
+      if (view) {
+        url.searchParams.set("view", view);
+      }
 
       if (offset) {
         url.searchParams.set("offset", offset);
@@ -29,7 +32,9 @@ export async function getStaticPaths() {
       });
 
       if (!response.ok) {
-        throw new Error(`Failed to fetch Airtable view: ${view}`);
+        throw new Error(
+          `Failed to fetch Airtable table: ${table}${view ? ` (view: ${view})` : ""}`
+        );
       }
 
       const data = await response.json();
@@ -40,19 +45,71 @@ export async function getStaticPaths() {
     return records;
   }
 
-  const records = await fetchAllProjects("Grid view");
+  function sortProjectLinks(
+    a: { title: string; url: string; isHomepage: boolean },
+    b: { title: string; url: string; isHomepage: boolean }
+  ) {
+    if (a.isHomepage !== b.isHomepage) {
+      return a.isHomepage ? -1 : 1;
+    }
 
-  return records
+    const aHasTitle = a.title.trim().length > 0;
+    const bHasTitle = b.title.trim().length > 0;
+
+    if (aHasTitle !== bHasTitle) {
+      return aHasTitle ? -1 : 1;
+    }
+
+    return a.url.localeCompare(b.url);
+  }
+
+  const [projectRecords, furtherReadingRecords] = await Promise.all([
+    fetchAllRecords("Projects", "Grid view"),
+    fetchAllRecords("Further Readings", "Grid view"),
+  ]);
+
+  const furtherReadingsByProjectId = new Map<
+    string,
+    { title: string; url: string; isHomepage: boolean }[]
+  >();
+
+  for (const reading of furtherReadingRecords) {
+    const fields = reading?.fields ?? {};
+    const url = typeof fields["Link"] === "string" ? fields["Link"].trim() : "";
+    const title =
+      typeof fields["Title"] === "string" ? fields["Title"].trim() : "";
+    const linkedProjects = Array.isArray(fields["Projects"])
+      ? fields["Projects"]
+      : [];
+    const isHomepage = fields["Project Homepage"] === true;
+
+    if (!url) continue;
+
+    for (const projectId of linkedProjects) {
+      const existing = furtherReadingsByProjectId.get(projectId) ?? [];
+      existing.push({ title, url, isHomepage });
+      furtherReadingsByProjectId.set(projectId, existing);
+    }
+  }
+
+  return projectRecords
     .filter((project: any) => {
       const slug = project?.fields?.Slug;
       return typeof slug === "string" && slug.trim().length > 0;
     })
     .map((project: any) => {
+      const rawFurtherReadings = furtherReadingsByProjectId.get(project.id) ?? [];
+      const dedupedFurtherReadings = rawFurtherReadings.filter(
+        (reading, index, array) =>
+          array.findIndex((item) => item.url === reading.url) === index
+      ).sort(sortProjectLinks);
+
       return {
         params: { slug: project.fields.Slug },
         props: {
           fields: project.fields,
-          relatedPosts: getRelatedPosts(records, project, 6),
+          relatedPosts: getRelatedPosts(projectRecords, project, 6),
+          projectLinks: dedupedFurtherReadings,
         },
       };
     });
@@ -61,7 +118,7 @@ export async function getStaticPaths() {
 const { slug } = Astro.params;
 slug;
 
-const { fields, relatedPosts } = Astro.props;
+const { fields, relatedPosts, projectLinks = [] } = Astro.props;
 
 const whatItIs = fields["What It Is"];
 const howItWorks = fields["How It Works"];
@@ -76,6 +133,19 @@ const hasStructuredSections = Boolean(
 
 function renderRichText(content: string) {
   return sanitizeHtml(marked.parse(content));
+}
+
+function getLinkLabel(link: { title?: string; url: string; isHomepage?: boolean }) {
+  if (link.title && link.title.trim().length > 0) {
+    return link.title.trim();
+  }
+
+  try {
+    const { hostname } = new URL(link.url);
+    return link.isHomepage ? "Visit project website" : hostname.replace(/^www\./, "");
+  } catch {
+    return link.isHomepage ? "Visit project website" : link.url;
+  }
 }
 
 console.log(fields);
@@ -102,6 +172,23 @@ console.log(fields);
               </a>
             </p>
           </aside>
+        )
+      }
+
+      {
+        projectLinks.length > 0 && (
+          <section class="project-links page-panel flow" aria-labelledby="project-links-title">
+            <h2 id="project-links-title">Project links</h2>
+            <ul role="list" class="project-links__list">
+              {projectLinks.map((link: { title?: string; url: string; isHomepage?: boolean }) => (
+                <li>
+                  <a href={link.url} target="_blank" rel="noreferrer noopener">
+                    {getLinkLabel(link)}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
         )
       }
 
@@ -266,6 +353,31 @@ console.log(fields);
     padding: 0;
     margin: 0 0 1.5rem 0;
     list-style: none;
+  }
+
+  .project-links {
+    margin-bottom: 1.5rem;
+  }
+
+  .project-links h2 {
+    font-size: clamp(1.7rem, 4vw, 2.8rem);
+    line-height: 0.94;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .project-links__list {
+    display: grid;
+    gap: 0.6rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .project-links__list a {
+    font-weight: 800;
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.15em;
   }
 
   .project-section + .project-section {
